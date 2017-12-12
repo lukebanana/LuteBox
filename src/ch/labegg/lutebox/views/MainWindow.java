@@ -2,6 +2,7 @@ package ch.labegg.lutebox.views;
 
 import ch.labegg.lutebox.config.LBConfig;
 import ch.labegg.lutebox.controller.api.DataController;
+import ch.labegg.lutebox.model.Lute;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +20,14 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application {
-	
-	private DataController controller = null;
 
 	private Button btn1 = null;
 	private Button btn2 = null;
 	private Stage stage = null;
 	private Scene scene1, scene2 = null;
-
+	ListView<Lute> list = new ListView<Lute>();
+	
+	
 	public void showView()	{
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
@@ -67,11 +68,6 @@ public class MainWindow extends Application {
 		
 		
 		// List Layout
-		ListView<String> list = new ListView<String>();
-		ObservableList<String> items = FXCollections.observableArrayList (
-		    "Single", "Double", "Suite", "Family App");
-		list.setItems(items);
-		
 		VBox listlayout = new VBox(20); 	// 20px spacing
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
@@ -132,13 +128,12 @@ public class MainWindow extends Application {
 		stage.show();
 
 	}
-
-	 public void show(Stage stage) {
-	      stage.setTitle("AxxG - JavaFX MVC Beispiel");
-	      stage.setScene(this.scene1);
-	      stage.show();
-	   }
+	
+	  public ListView<Lute> getList() {
+		  return this.list;
+	  }
 	 
+
 
 	private void closeProgram() {
 		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);

@@ -6,19 +6,22 @@ import ch.labegg.lutebox.model.MainModel;
 import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.MainWindow;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListView;
 
 public class MainController implements DataController {
 
 	private MainWindow view = null;
 	private DataModel model = null;
-	private ListView<Lute> listView;
 	  
 	public MainController(){
-        this.model = new MainModel();
+		DataModel modeltest = new MainModel();
         this.view = new MainWindow();
         
-        initModel(this.model);
+        initModel(modeltest);
+        
+       
+        this.view.getList().setItems(this.model.getList());;
+        
+        
         this.view.showView();
     }
 	
@@ -37,7 +40,9 @@ public class MainController implements DataController {
 
 	        this.model = model;
 	        
-	        listView.setItems(model.getList());
+	        
+	        System.out.println(this.model.getList());
+	        //listView.setItems();
 	        
 	        /*
 
