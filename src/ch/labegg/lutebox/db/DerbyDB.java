@@ -19,14 +19,12 @@ public class DerbyDB implements LBDatabaseHandler {
 	private Connection connection = null;
 
 	public DerbyDB() {
-		
 		try {
 			this.connection = DriverManager.getConnection(DerbyHelper.JDBC_URL);
 			this.statement = this.connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void main(String[] args) throws SQLException {
