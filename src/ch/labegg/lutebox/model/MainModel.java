@@ -13,6 +13,8 @@ public class MainModel implements DataModel {
    		this.list.add(new Lute("Second TestLute"));
    		
    		this.list.add(new Lute("Third TestLute"));
+   		
+   		this.list.add(new Lute("Fourth TestLute"));
     }
     
 	@Override
