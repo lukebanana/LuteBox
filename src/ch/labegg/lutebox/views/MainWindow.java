@@ -1,14 +1,11 @@
-package ch.labegg.lutebox.gui;
+package ch.labegg.lutebox.views;
 
 import ch.labegg.lutebox.config.LBConfig;
+import ch.labegg.lutebox.controller.api.DataController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,27 +13,25 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application {
+	
+	private DataController controller = null;
 
 	private Button btn1 = null;
 	private Button btn2 = null;
 	private Stage stage = null;
 	private Scene scene1, scene2 = null;
 
-	
-	public static void main(String[] args) {
+	public void showView()	{
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
-		launch(args);
-	}
-	
+		launch();
+    }
 
 	@Override
 	public void start(Stage initialStage) throws Exception {
@@ -138,6 +133,12 @@ public class MainWindow extends Application {
 
 	}
 
+	 public void show(Stage stage) {
+	      stage.setTitle("AxxG - JavaFX MVC Beispiel");
+	      stage.setScene(this.scene1);
+	      stage.show();
+	   }
+	 
 
 	private void closeProgram() {
 		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);

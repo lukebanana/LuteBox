@@ -1,4 +1,4 @@
-package ch.labegg.lutebox.gui;
+package ch.labegg.lutebox.views;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

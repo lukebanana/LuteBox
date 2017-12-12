@@ -1,4 +1,4 @@
-package ch.labegg.lutebox.gui;
+package ch.labegg.lutebox.views;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

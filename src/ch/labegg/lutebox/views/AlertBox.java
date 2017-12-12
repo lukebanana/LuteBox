@@ -1,4 +1,4 @@
-package ch.labegg.lutebox.gui;
+package ch.labegg.lutebox.views;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
