@@ -1,10 +1,8 @@
 package ch.labegg.lutebox.views;
 
 import ch.labegg.lutebox.config.LBConfig;
+import ch.labegg.lutebox.controller.DataController;
 import ch.labegg.lutebox.model.Lute;
-import ch.labegg.lutebox.model.MainModel;
-import ch.labegg.lutebox.model.api.DataModel;
-import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,34 +18,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class MainWindow extends Application {
+public class MainView {
 
 	private Button btn1 = null;
 	private Button btn2 = null;
-	private Stage stage = null;
 	private Scene scene1, scene2 = null;
-	private DataModel model = null;
-	private ObservableList<Lute> list = null;
+	private DataController controller = null;
 	
-	
-	public static void main(String[] args)	{
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
-		launch(args);
-    }
+	public MainView(DataController controller) {
+		setupView(controller.getList());
+	}
 
-	@Override
-	public void start(Stage initialStage) throws Exception {
-		model = new MainModel();
-		
+	public void setupView(ObservableList<Lute> list) {
 		// Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-		stage = initialStage;
-		stage.setMaximized(true);
-		stage.setTitle("Test Title");
-		stage.setOnCloseRequest(e -> {
-			e.consume(); // Stops java from closing Program
-			closeProgram();
-		});
 		
 		// Top Menu
 		MenuBar menuBar = new MenuBar();
@@ -76,7 +59,6 @@ public class MainWindow extends Application {
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
 	
-		list = this.model.getList();
         ListView<Lute> listView = new ListView<>(list);
         listView.setCellFactory(param -> new ListCell<Lute>() {
             @Override
@@ -104,7 +86,7 @@ public class MainWindow extends Application {
 		btn1 = new Button("Go to scene 2");
 
 		btn1.setOnAction(event -> {
-			stage.setScene(scene2);
+			controller.getStage().setScene(scene2);
 		});
 	
 		VBox bottomlayout = new VBox(20); 	// 20px spacing
@@ -116,11 +98,7 @@ public class MainWindow extends Application {
 	
 		borderPane.setBottom(bottomlayout);
 		
-		
 		scene1 = new Scene(borderPane);
-		
-		
-		
 		
 		
 		// Layout 2
@@ -131,7 +109,7 @@ public class MainWindow extends Application {
 			boolean result = ConfirmBox.display("Alert, yoo", "Are you sure?", 200, 200);
 	
 			if(result) {
-				stage.setScene(scene1);
+				controller.getStage().setScene(scene1);
 			}
 		});
 		
@@ -142,27 +120,13 @@ public class MainWindow extends Application {
 		scene2 = new Scene(layout2, 320, 400);
 		
 		
-		stage.setScene(scene1);
-		stage.centerOnScreen();
-		stage.show();
+		//controller.getStage().setScene(scene1);
 
 	}
 	
-	  public ObservableList<Lute> getList() {
-		  return list;
-	  }
-	 
-
-	  public void setList(ObservableList<Lute> listItems) {
-		  list = listItems;
-	  }
-
-	private void closeProgram() {
-		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);
-				
-		if(result) {
-			stage.close();
-		}
-	}
+	public void show(Stage stage) {
+      stage.setScene(scene1);
+      stage.show();
+   }
 	
 }
