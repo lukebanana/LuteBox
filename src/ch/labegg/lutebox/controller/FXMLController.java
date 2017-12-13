@@ -2,6 +2,7 @@ package ch.labegg.lutebox.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import ch.labegg.lutebox.config.LBConfig;
@@ -47,14 +48,11 @@ public class FXMLController extends Application implements Initializable {
 	private DataModel model = null;
 	private ObservableList<Lute> list = null;
 	
-	
-	@FXML
-	public void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-	
+
 	
 	public static void main(String[] args) {
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
+		 System.setProperty("apple.laf.useScreenMenuBar", "true");
 		launch(args);
 	}
 
@@ -63,19 +61,29 @@ public class FXMLController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 			    
 	    try {
-	    		Parent root = FXMLLoader.load(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
+		    	Locale locale = new Locale("de");
+		    	ResourceBundle bundle = ResourceBundle.getBundle("ch.labegg.lutebox.bundles.AppStrings", locale);
+		    	FXMLLoader loader = new FXMLLoader();
+		    	loader.setResources(bundle);
+		    	borderPane = new BorderPane();
+		    	
+		    	loader.setRoot(borderPane);
+		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
+		    	loader.load();
+	
 			primaryStage.setMaximized(true);
+			primaryStage.setTitle("LuteBox");
 			
-			primaryStage.setTitle("Test Title");
 			primaryStage.setOnCloseRequest(e -> {
 				e.consume(); // Stops java from closing Program
 				closeProgram(primaryStage);
 			});
 			
-			
-			primaryStage.setScene(new Scene(root, 300, 275));		
+			Scene scene1 = new Scene(borderPane);
+			primaryStage.setScene(scene1);		
+			primaryStage.centerOnScreen();
 			primaryStage.show();
-		    
+			
 		
         } catch (IOException e) {
         		e.printStackTrace();
@@ -85,7 +93,14 @@ public class FXMLController extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("test");
+		
+		/*
+		String macMenu = System.getProperty("apple.laf.useScreenMenuBar");
+	     if( macMenu != null && macMenu == "true" ) {
+	    	 	borderPane.getChildren().remove(menuBar);
+	     }
+	     */
+	     
 		
 		leftMenu.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		leftMenu.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
@@ -117,7 +132,14 @@ public class FXMLController extends Application implements Initializable {
 		bottomlayout.setStyle("-fx-background-color: "+LBConfig.BOTTOM_WINDOW_BG_COLOR+";");
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
-	}
+	}	
+	
+	
+	@FXML
+	public void handleButtonAction(ActionEvent event) {
+        System.out.println("You clicked me!");
+    }
+	
 	
 	@FXML
 	private void handleKeyInput(final InputEvent event) {
@@ -129,18 +151,23 @@ public class FXMLController extends Application implements Initializable {
 			}
 		}
 	}
-	
+
+	private void selectWholeList() {
+		 System.out.println("You selected all");    
+		
+	}
+
 	
 	@FXML
 	private void handleSaveAction(final ActionEvent event) {
 		 System.out.println("Saved");   
 	}
 	
-	private void selectWholeList() {
-		 System.out.println("You selected all");    
-		
+	@FXML
+	private void handleCloseAction(final ActionEvent event) {
+		closeProgram((Stage) borderPane.getScene().getWindow());
 	}
-
+	
 
 	private void closeProgram(Stage stage) {
 		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);

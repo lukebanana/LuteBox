@@ -3,20 +3,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
     <top>
     		<MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
-	    		 <Menu text="File">
+	    		 <Menu text="%fileMenuName">
 	            <items>
-	               <MenuItem text="New"/>
-	               <MenuItem text="Open"/>
-	               <MenuItem text="Save" onAction="#handleSaveAction"/>
+	               <MenuItem text="%fileMenuNew"/>
+	               <MenuItem text="%fileMenuOpen"/>
+	               <MenuItem text="%fileMenuSave" onAction="#handleSaveAction"/>
 	               <SeparatorMenuItem  />
-	               <MenuItem text="Exit"/>
+	               <MenuItem text="%fileMenuExit" onAction="#handleCloseAction"/>
 	            </items>
 	         </Menu>
-	    		<Menu text="Edit"></Menu>
-	    		<Menu text="Help"></Menu>
+	    		<Menu text="%fileMenuEdit"></Menu>
+	    		<Menu text="%fileMenuHelp"></Menu>
         </MenuBar>
     </top>
     <left>
@@ -30,4 +30,4 @@
       <bottom>
     		<VBox fx:id="bottomlayout"></VBox>
     </bottom>
-</BorderPane>
+</fx:root>
