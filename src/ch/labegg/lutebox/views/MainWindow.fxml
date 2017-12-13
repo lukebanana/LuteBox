@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+    <top>
+    		<MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
+	    		 <Menu text="File">
+	            <items>
+	               <MenuItem text="New"/>
+	               <MenuItem text="Open"/>
+	               <MenuItem text="Save" onAction="#handleSaveAction"/>
+	               <SeparatorMenuItem  />
+	               <MenuItem text="Exit"/>
+	            </items>
+	         </Menu>
+	    		<Menu text="Edit"></Menu>
+	    		<Menu text="Help"></Menu>
+        </MenuBar>
+    </top>
+    <left>
+		<VBox fx:id="leftMenu">
+		    <Button text="Click Me!" onAction="#handleButtonAction" />
+		</VBox>
+	</left>
+    <center>
+    		<VBox fx:id="listlayout"></VBox>
+    </center>
+      <bottom>
+    		<VBox fx:id="bottomlayout"></VBox>
+    </bottom>
+</BorderPane>
