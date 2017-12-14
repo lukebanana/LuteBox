@@ -3,7 +3,6 @@ package ch.labegg.lutebox.controller;
 import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.ConfirmBox;
-import ch.labegg.lutebox.views.MainWindow;
 import ch.labegg.lutebox.views.MainView;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
