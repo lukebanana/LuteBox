@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="derby-160556c4b36-5b7e176cb0f448de" provider="generic" driver="derby" name="Derby - luteboxDB" save-password="true" show-system-objects="true" read-only="false">
+		<connection server="" database="/Users/lua/eclipse-workspace/LuteBox/luteboxDB" url="jdbc:derby:/Users/lua/eclipse-workspace/LuteBox/luteboxDB" user="admin" password="HxESJUNMXHbk" type="dev"/>
+	</data-source>
+	<filters/>
+</data-sources>

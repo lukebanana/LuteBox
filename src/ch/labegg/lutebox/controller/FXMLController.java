@@ -52,7 +52,7 @@ public class FXMLController extends Application implements Initializable {
 	
 	public static void main(String[] args) {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
-		 System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		launch(args);
 	}
 

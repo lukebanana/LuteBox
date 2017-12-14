@@ -1,20 +1,19 @@
 package ch.labegg.lutebox.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ch.labegg.lutebox.db.api.LBDatabaseHandler;
 
+import ch.labegg.lutebox.db.api.LBDatabaseHandler;
+import ch.labegg.lutebox.model.Lute;
+import javafx.collections.ObservableList;
 
 public class DerbyDB implements LBDatabaseHandler {
 
-	public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-	public static final String JDBC_URL = "jdbc:derby:zadb;create=true";
-	public static final String TABLE_NAME = "personen";
-	public static final String SQL_STATEMENT = "SELECT * FROM "+TABLE_NAME;
+	public static final String TABLE_NAME = "LUTES";
 	private Statement statement = null;
 	private Connection connection = null;
 
@@ -27,34 +26,8 @@ public class DerbyDB implements LBDatabaseHandler {
 		}
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		LBDatabaseHandler db = new DerbyDB();
 	
-		//db.createTable(TABLE_NAME);
-		//db.insertData(TABLE_NAME);
-		ResultSet resultSet = db.query(SQL_STATEMENT);
-		
-		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-		int columnCount = resultSetMetaData.getColumnCount();
-		
-		for(int x = 1; x<=columnCount; x++) {
-			System.out.format("%20s", resultSetMetaData.getColumnName(x) + " | ");
-		}
-		
-		System.out.println();
-
-		while(resultSet.next()) {
-			for(int x = 1; x<=columnCount; x++) {
-				System.out.format("%20s", resultSet.getString(x) + " | ");
-			}
-			System.out.println();
-		}
-		
-		db.closeConnection();
-
-	}
-	
-	public ResultSet query(String sqlquery) {		
+	private ResultSet query(String sqlquery) {		
 		try {
 			return this.statement.executeQuery(sqlquery);
 		} catch(SQLException e) {
@@ -74,7 +47,8 @@ public class DerbyDB implements LBDatabaseHandler {
 		}
 		
 		try {
-			return this.connection.createStatement().execute("CREATE TABLE "+tableName+"(anrede VARCHAR(20), name VARCHAR(20), vorname VARCHAR(20))");
+			
+			return this.connection.createStatement().execute("CREATE TABLE "+tableName+"(lute BLOB, anrede VARCHAR(20), name VARCHAR(20), vorname VARCHAR(20))");
 		} catch(SQLException e) {
 			if(DerbyHelper.tableAlreadyExists(e)) {
 				System.out.println("Table already exists");
@@ -84,19 +58,31 @@ public class DerbyDB implements LBDatabaseHandler {
 		return false;
 	}
 	
-	public boolean insertData(String tableName) {
-
+	public boolean insertData(ObservableList<Lute> list) {
 		try {
-			return this.connection.createStatement().execute("INSERT INTO "+tableName+" VALUES "
+			/*
+			
+			return this.connection.createStatement().execute("INSERT INTO "+TABLE_NAME+"(lute) VALUES "
 												+ "('Frau', 'Hartmeier', 'Maya'),"
 												+ "('Herr', 'Abegg', 'Lukas'),"
 												+ "('Herr', 'Schmid', 'Lukas'),"
 												+ "('Herr', 'Wayne', 'John'),"
 												+ "('Frau', 'Ryder', 'Winona'),"
 												+ "('Herr', 'Wettach', 'Marco')");
+												
+												*/
+			for(Lute l: list) {
+			
+				PreparedStatement pstmt = this.connection.prepareStatement("INSERT INTO "+TABLE_NAME+"(lute) VALUES (?)");
+
+			    // set input parameters
+			    pstmt.setObject(1, l);
+			    pstmt.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
 			if(DerbyHelper.tableDoesntExist(e)) {
-				System.out.println("Cannot insert data into table "+tableName+": Table doesn't exist");
+				System.out.println("Cannot insert data into table "+TABLE_NAME+": Table doesn't exist");
 			}else {
 				e.printStackTrace();
 			}
@@ -108,8 +94,23 @@ public class DerbyDB implements LBDatabaseHandler {
 		try {
 			if(this.statement != null) { this.statement.close(); }
 			if(this.connection != null) { this.connection.close(); }
+			
+			try {
+				DriverManager.getConnection("jdbc:derby:;shutdown=true");			
+			} catch(SQLException e) {
+				if(DerbyHelper.derbyShutdownError(e)) {
+					System.out.println("Shutting down DerbyDB");
+				}
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public ResultSet getAllEntries() {
+		return query("SELECT * FROM "+TABLE_NAME);
+	}
+
+	
 }
