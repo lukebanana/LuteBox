@@ -11,6 +11,7 @@ import ch.labegg.lutebox.model.MainModel;
 import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.ConfirmBox;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -44,6 +48,8 @@ public class FXMLController extends Application implements Initializable {
 	
 	@FXML private VBox listlayout;	
 	@FXML private VBox bottomlayout;
+	
+	@FXML private TableView<Lute> tableView;
 	
 	private DataModel model = null;
 	private ObservableList<Lute> list = null;
@@ -108,25 +114,13 @@ public class FXMLController extends Application implements Initializable {
 		model = new MainModel();
 
 		list = this.model.getList();
-        ListView<Lute> listView = new ListView<>(list);
         
-        listView.setCellFactory(param -> new ListCell<Lute>() {
-            @Override
-            protected void updateItem(Lute item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null || item.getName() == null) {
-                    setText(null);
-                } else {
-                    setText(item.getName());
-                }
-            }
-        });
+		tableView.setItems(list);
+			
         
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
-		listlayout.setVgrow(listView, Priority.ALWAYS);
-		listlayout.getChildren().add(listView);	
+		listlayout.setVgrow(tableView, Priority.ALWAYS);
 	
 
 		bottomlayout.setStyle("-fx-background-color: "+LBConfig.BOTTOM_WINDOW_BG_COLOR+";");

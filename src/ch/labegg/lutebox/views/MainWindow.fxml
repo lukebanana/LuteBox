@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
 <fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
     <top>
     		<MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
@@ -25,7 +26,15 @@
 		</VBox>
 	</left>
     <center>
-    		<VBox fx:id="listlayout"></VBox>
+    		<VBox fx:id="listlayout">
+    			<TableView fx:id="tableView">
+    				<columns>
+	    				<TableColumn text="First Name"></TableColumn>
+		    			<TableColumn text="Last Name"></TableColumn>
+		          	<TableColumn text="Email Address"></TableColumn>
+	          	</columns> 
+    			</TableView>
+    		</VBox>
     </center>
       <bottom>
     		<VBox fx:id="bottomlayout"></VBox>

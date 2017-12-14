@@ -6,10 +6,10 @@ import java.util.List;
 import ch.labegg.lutebox.model.Lute;
 import javafx.collections.ObservableList;
 
-public interface LBDatabaseHandler {
-	
+public interface LBDerbyDatabaseHandler {
+
 	public boolean createDB(String dbName);
 	public boolean insertData(ObservableList<Lute> list);
 	public void closeConnection();
-	public List<Lute> getAllEntries();
+	public ResultSet getAllEntries();
 }

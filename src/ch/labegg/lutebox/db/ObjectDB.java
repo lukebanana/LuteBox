@@ -15,30 +15,30 @@ public class ObjectDB implements LBDatabaseHandler{
 	
 	public ObjectDB() {
 		  emf = Persistence.createEntityManagerFactory("$objectdb/db/lutebox.odb");
-		   em = emf.createEntityManager();
+		  em = emf.createEntityManager();
 		    
 	}
 	
     public static void main(String[] args) {
 		// Open a database connection
 	    // (create a new database if it doesn't exist yet):
-    		ObjectDB db = new ObjectDB();
+    		LBDatabaseHandler db = new ObjectDB();
     	
     	
-	    
+	    /*
 	    
 	    // Find the number of Point objects in the database:
 	    Query q1 = em.createQuery("SELECT COUNT(l) FROM Lute l");
 	    System.out.println("Total Points: " + q1.getSingleResult());
-	
+	*/
 	
 	
 	    db.closeConnection();
 	}
 
-	@Override
-	public boolean createTable(String tableName) {
-		emf = Persistence.createEntityManagerFactory("$objectdb/db/lutebox.odb");
+    
+	public boolean createDB(String dbName) {
+		emf = Persistence.createEntityManagerFactory("$objectdb/db/"+dbName+".odb");
 		return true;
 	}
 
@@ -69,14 +69,10 @@ public class ObjectDB implements LBDatabaseHandler{
 	}
 
 	@Override
-	public ObservableList<Lute> getAllEntries() {
-
-	    // Retrieve all the Point objects from the database:
+	public List<Lute> getAllEntries() {
+	    // Retrieve all the Lute objects from the database
 	    TypedQuery<Lute> query = em.createQuery("SELECT l FROM Lute l", Lute.class);
-	    ObservableList<Lute> results = (ObservableList<Lute>) query.getResultList();
-	    for (Lute l : results) {
-	        System.out.println(l.getName());
-	    }
+	    List<Lute> results = query.getResultList();
 		return results;
 	}
 }

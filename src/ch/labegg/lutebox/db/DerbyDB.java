@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
-
-import ch.labegg.lutebox.db.api.LBDatabaseHandler;
+import ch.labegg.lutebox.db.api.LBDerbyDatabaseHandler;
 import ch.labegg.lutebox.model.Lute;
 import javafx.collections.ObservableList;
 
-public class DerbyDB implements LBDatabaseHandler {
+public class DerbyDB implements LBDerbyDatabaseHandler {
 
 	public static final String TABLE_NAME = "LUTES";
 	private Statement statement = null;
@@ -111,6 +111,14 @@ public class DerbyDB implements LBDatabaseHandler {
 	public ResultSet getAllEntries() {
 		return query("SELECT * FROM "+TABLE_NAME);
 	}
+
+
+	@Override
+	public boolean createDB(String tableName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 	
 }
