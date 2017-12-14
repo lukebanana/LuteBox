@@ -64,6 +64,9 @@ public class FXMLController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 			    
 	    try {
+			primaryStage.setMaximized(true);
+			primaryStage.setTitle("LuteBox");
+			
 		    	Locale locale = new Locale("de");
 		    	ResourceBundle bundle = ResourceBundle.getBundle("ch.labegg.lutebox.bundles.AppStrings", locale);
 		    	FXMLLoader loader = new FXMLLoader();
@@ -74,8 +77,6 @@ public class FXMLController extends Application implements Initializable {
 		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
 		    	loader.load();
 	
-			primaryStage.setMaximized(true);
-			primaryStage.setTitle("LuteBox");
 			
 			primaryStage.setOnCloseRequest(e -> {
 				e.consume(); // Stops java from closing Program
