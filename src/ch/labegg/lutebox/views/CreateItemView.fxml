@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<BorderPane fx:controller="ch.labegg.lutebox.controller.FXMLCreateController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+      <top>
+      	<TextField fx:id="textInputRefNr" promptText="%inputReferenceNr" />
+		<TextField fx:id="textInputName" promptText="%inputName" />
+  		<TextField fx:id="textInputYear" promptText="%inputYear" />
+  		<Button text="%addListItem" onAction="#handleAddButtonAction" />
+     </top>
+</BorderPane>

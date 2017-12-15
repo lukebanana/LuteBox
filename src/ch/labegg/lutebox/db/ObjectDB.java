@@ -10,54 +10,38 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class ObjectDB implements LBDatabaseHandler{
-	EntityManagerFactory emf = null;
-	EntityManager em = null;
+	private EntityManagerFactory emf = null;
+	private EntityManager em = null;
 	
 	public ObjectDB() {
-		  emf = Persistence.createEntityManagerFactory("$objectdb/db/lutebox.odb");
-		  em = emf.createEntityManager();
-		    
+		emf = Persistence.createEntityManagerFactory("$objectdb/db/lutebox.odb");
+		em = emf.createEntityManager();
 	}
 	
-    public static void main(String[] args) {
-		// Open a database connection
-	    // (create a new database if it doesn't exist yet):
-    		LBDatabaseHandler db = new ObjectDB();
-    	
-    	
-	    /*
-	    
-	    // Find the number of Point objects in the database:
-	    Query q1 = em.createQuery("SELECT COUNT(l) FROM Lute l");
-	    System.out.println("Total Points: " + q1.getSingleResult());
-	*/
-	
-	
-	    db.closeConnection();
-	}
-
-    
 	public boolean createDB(String dbName) {
 		emf = Persistence.createEntityManagerFactory("$objectdb/db/"+dbName+".odb");
 		return true;
 	}
 
 	@Override
-	public boolean insertData(ObservableList<Lute> list) {
-		// Open a database connection
-	    // (create a new database if it doesn't exist yet):
-	    emf = Persistence.createEntityManagerFactory("$objectdb/db/lutebox.odb");
-	    em = emf.createEntityManager();
+	public boolean insertData() {
 	    
-	    // Store 1000 Point objects in the database:
 	    em.getTransaction().begin();
 	    
-	    for (int i = 0; i < 1000; i++) {
-	        Lute l = new Lute("TestLute"+i);
+	    // Store 200 Test objects in the database:
+	    for (short i = 0; i < 200; i++) {
+	        Lute l = new Lute("TestLute"+i, (short)(1800+i), "Ref"+i);
 	        em.persist(l);
 	    }
 	    em.getTransaction().commit();
 	    return true;
+	}
+	
+	@Override
+	public void insertSingle(Lute lute) {
+		em.getTransaction().begin();
+	    em.persist(lute);
+	    em.getTransaction().commit();
 	}
 	
 
@@ -74,5 +58,29 @@ public class ObjectDB implements LBDatabaseHandler{
 	    TypedQuery<Lute> query = em.createQuery("SELECT l FROM Lute l", Lute.class);
 	    List<Lute> results = query.getResultList();
 		return results;
+	}
+
+	/**
+     * Delete lute entity.
+     *
+     * @param lute the object to be deleted.
+     */
+	@Override
+	public void delete(Lute lute) {
+		em.getTransaction().begin();
+		em.remove(lute);
+		em.getTransaction().commit();
+	}
+	
+	/**
+     * Update lute entity.
+     *
+     * @param lute the object to be updated.
+     */
+	@Override
+	public void update(Lute lute) {
+		em.getTransaction().begin();
+		em.merge(lute);
+		em.getTransaction().commit();
 	}
 }

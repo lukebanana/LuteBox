@@ -1,10 +1,5 @@
 package ch.labegg.lutebox.model;
 
-
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-
 import ch.labegg.lutebox.db.ObjectDB;
 import ch.labegg.lutebox.db.api.LBDatabaseHandler;
 import ch.labegg.lutebox.model.api.DataModel;
@@ -13,23 +8,37 @@ import javafx.collections.ObservableList;
 
 public class MainModel implements DataModel {
     private ObservableList<Lute> list = FXCollections.observableArrayList();
-
+    private LBDatabaseHandler db = null;
     
     public MainModel(){   		
-   		LBDatabaseHandler db = new ObjectDB();
-   		
+   		db = new ObjectDB();
    		
 		db.createDB("lutebox");
-		db.insertData(this.list);
+		//db.insertData(this.list);
 
-		list = FXCollections.observableList(db.getAllEntries());
-		
-		db.closeConnection();
+		list = getList();
     }
     
 	@Override
 	public ObservableList<Lute> getList() {
-		return list;
+		return FXCollections.observableList(db.getAllEntries());
+	}
+
+	@Override
+	public void addItem(Lute lute) {
+		db.insertSingle(lute);
+	}
+	
+
+	@Override
+	public void removeItem(Lute lute) {
+		db.delete(lute);
+	}
+
+
+	@Override
+	public void closeDB() {
+		db.closeConnection();
 	}
 
 	

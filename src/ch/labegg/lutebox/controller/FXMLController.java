@@ -20,15 +20,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -43,14 +41,19 @@ public class FXMLController extends Application implements Initializable {
 	
 	@FXML private VBox leftMenu;
 	
-	@FXML private VBox listlayout;	
+	@FXML private VBox listlayout;
+	@FXML private TableView<Lute> tableView;
+    @FXML private TableColumn<Lute, String> colRefNr;
+    @FXML private TableColumn<Lute, String> colName;
+    @FXML private TableColumn<Lute, Short> colYear;
+    
 	@FXML private VBox bottomlayout;
 	
-	@FXML private TableView<Lute> tableView;
-	
+    
 	private DataModel model = null;
 	private ObservableList<Lute> list = null;
-	
+	private FXMLLoader loader = new FXMLLoader();;
+	private Stage window;
 
 	
 	public static void main(String[] args) {
@@ -62,31 +65,34 @@ public class FXMLController extends Application implements Initializable {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-			    
+		
+		window = primaryStage;
+		
 	    try {
 			primaryStage.setMaximized(true);
 			primaryStage.setTitle("LuteBox");
 			
 		    	Locale locale = new Locale("de");
 		    	ResourceBundle bundle = ResourceBundle.getBundle("ch.labegg.lutebox.bundles.AppStrings", locale);
-		    	FXMLLoader loader = new FXMLLoader();
 		    	loader.setResources(bundle);
 		    	borderPane = new BorderPane();
 		    	
-		    	loader.setRoot(borderPane);
+		    	
 		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
-		    	loader.load();
-	
+		    	loader.setRoot(borderPane);
+		    loader.load();
+		 
+		    	Scene scene1 = new Scene(borderPane);	
+		    	window.setScene(scene1);		
+		    	window.centerOnScreen();
 			
-			primaryStage.setOnCloseRequest(e -> {
+		   	
+		    	window.setOnCloseRequest(e -> {
 				e.consume(); // Stops java from closing Program
 				closeProgram(primaryStage);
 			});
 			
-			Scene scene1 = new Scene(borderPane);
-			primaryStage.setScene(scene1);		
-			primaryStage.centerOnScreen();
-			primaryStage.show();
+		    	window.show();
 			
 		
         } catch (IOException e) {
@@ -98,23 +104,18 @@ public class FXMLController extends Application implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		/*
-		String macMenu = System.getProperty("apple.laf.useScreenMenuBar");
-	     if( macMenu != null && macMenu == "true" ) {
-	    	 	borderPane.getChildren().remove(menuBar);
-	     }
-	     */
-	     
-		
 		leftMenu.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		leftMenu.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		
+		// Data Mapping
+		colRefNr.setCellValueFactory(new PropertyValueFactory<>("referenceNr"));
+		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+		
 		model = new MainModel();
-
 		list = this.model.getList();
         
 		tableView.setItems(list);
-			
         
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
@@ -129,26 +130,46 @@ public class FXMLController extends Application implements Initializable {
 	
 	@FXML
 	public void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+
+		System.out.println("You clicked me!");
+		
+      
+		try {
+		 	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/CreateItemView.fxml"));
+	      	Parent root = (Parent)loader.load();
+	      	
+			Scene sceneCreate = new Scene(root, 800, 400);	
+			Stage stage2 = new Stage();
+			stage2.initModality(Modality.APPLICATION_MODAL); // Block user from clicking away
+			stage2.setScene(sceneCreate);	
+			stage2.centerOnScreen();
+			stage2.show();
+		
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+		  
+		
     }
 	
-	
+
 	@FXML
-	private void handleKeyInput(final InputEvent event) {
-		if (event instanceof KeyEvent) {
-			 System.out.println("Test2");  
-			final KeyEvent keyEvent = (KeyEvent) event;
-			if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.A) {
-				selectWholeList();
-			}
+	public void handleAddButtonAction(ActionEvent event) {
+		Lute l = new Lute("Tets");
+		list.add(l);
+		model.addItem(l);
+    }
+
+	@FXML
+	public void handleDeleteButtonAction(ActionEvent event) {
+		ObservableList<Lute> selectedItems = tableView.getSelectionModel().getSelectedItems();
+		for(Lute item : selectedItems) {
+			tableView.getItems().remove(item);
+			model.removeItem(item);
 		}
-	}
-
-	private void selectWholeList() {
-		 System.out.println("You selected all");    
-		
-	}
-
+    }
 	
 	@FXML
 	private void handleSaveAction(final ActionEvent event) {

@@ -4,9 +4,11 @@
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.control.TextField?>
 <fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
     <top>
-    		<MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
+    		<MenuBar fx:id="menuBar">
 	    		 <Menu text="%fileMenuName">
 	            <items>
 	               <MenuItem text="%fileMenuNew"/>
@@ -22,6 +24,7 @@
     </top>
     <left>
 		<VBox fx:id="leftMenu">
+			<Button text="%deleteListItem" onAction="#handleDeleteButtonAction" />
 		    <Button text="Click Me!" onAction="#handleButtonAction" />
 		</VBox>
 	</left>
@@ -29,14 +32,20 @@
     		<VBox fx:id="listlayout">
     			<TableView fx:id="tableView">
     				<columns>
-	    				<TableColumn text="First Name"></TableColumn>
-		    			<TableColumn text="Last Name"></TableColumn>
-		          	<TableColumn text="Email Address"></TableColumn>
+	    				<TableColumn fx:id="colRefNr" text="%colReferenceNr">
+				      <cellValueFactory>
+				        <PropertyValueFactory property="referenceNr" />
+				      </cellValueFactory>
+	    				</TableColumn>
+		    			<TableColumn fx:id="colName" text="%colName"></TableColumn>
+		          	<TableColumn fx:id="colYear" text="%colYear"></TableColumn>
 	          	</columns> 
     			</TableView>
     		</VBox>
     </center>
       <bottom>
-    		<VBox fx:id="bottomlayout"></VBox>
+    		<VBox fx:id="bottomlayout">
+    			
+    		</VBox>
     </bottom>
 </fx:root>
