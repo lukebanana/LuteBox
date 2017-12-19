@@ -27,7 +27,7 @@ public class Lute implements Serializable  {
 		this.year = year;
 	}
 	
-	public Lute(String name, short year, String referenceNr) {
+	public Lute(String name, String referenceNr, short year) {
 		this.name = name;
 		this.year = year;
 		this.referenceNr = referenceNr;

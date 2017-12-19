@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.TextField?>
-<fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLMainController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
     <top>
     		<MenuBar fx:id="menuBar">
 	    		 <Menu text="%fileMenuName">
@@ -25,7 +25,7 @@
     <left>
 		<VBox fx:id="leftMenu">
 			<Button text="%deleteListItem" onAction="#handleDeleteButtonAction" />
-		    <Button text="Click Me!" onAction="#handleButtonAction" />
+		    <Button text="%createListItem" onAction="#handleButtonAction" />
 		</VBox>
 	</left>
     <center>

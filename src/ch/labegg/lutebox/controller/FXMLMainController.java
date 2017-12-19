@@ -30,7 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class FXMLController extends Application implements Initializable {
+public class FXMLMainController extends Application implements Initializable {
 
 	@FXML private BorderPane borderPane;
 
@@ -50,9 +50,10 @@ public class FXMLController extends Application implements Initializable {
 	@FXML private VBox bottomlayout;
 	
     
-	private DataModel model = null;
+	private DataModel model = new MainModel();
 	private ObservableList<Lute> list = null;
-	private FXMLLoader loader = new FXMLLoader();;
+
+	private FXMLLoader loader = new FXMLLoader();
 	private Stage window;
 
 	
@@ -67,17 +68,13 @@ public class FXMLController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
+		window.setMaximized(true);
+		window.setTitle("LuteBox");
 		
 	    try {
-			primaryStage.setMaximized(true);
-			primaryStage.setTitle("LuteBox");
-			
-		    	Locale locale = new Locale("de");
-		    	ResourceBundle bundle = ResourceBundle.getBundle("ch.labegg.lutebox.bundles.AppStrings", locale);
-		    	loader.setResources(bundle);
 		    	borderPane = new BorderPane();
-		    	
-		    	
+
+		    	loader.setResources(model.getRessourceBundle());
 		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
 		    	loader.setRoot(borderPane);
 		    loader.load();
@@ -106,13 +103,13 @@ public class FXMLController extends Application implements Initializable {
 		
 		leftMenu.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		leftMenu.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
+		leftMenu.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 		
 		// Data Mapping
 		colRefNr.setCellValueFactory(new PropertyValueFactory<>("referenceNr"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 		
-		model = new MainModel();
 		list = this.model.getList();
         
 		tableView.setItems(list);
@@ -125,6 +122,7 @@ public class FXMLController extends Application implements Initializable {
 		bottomlayout.setStyle("-fx-background-color: "+LBConfig.BOTTOM_WINDOW_BG_COLOR+";");
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
+		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 	}	
 	
 	
@@ -133,11 +131,17 @@ public class FXMLController extends Application implements Initializable {
 
 		System.out.println("You clicked me!");
 		
-      
 		try {
+			loader.setResources(model.getRessourceBundle());
 		 	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/CreateItemView.fxml"));
+		 	// Create a controller instance
+	        FXMLCreateController ccontroller = new FXMLCreateController(model, list);
+	        // Set it in the FXMLLoader
+	        loader.setController(ccontroller);
+		 	
 	      	Parent root = (Parent)loader.load();
 	      	
+	     
 			Scene sceneCreate = new Scene(root, 800, 400);	
 			Stage stage2 = new Stage();
 			stage2.initModality(Modality.APPLICATION_MODAL); // Block user from clicking away
@@ -151,15 +155,6 @@ public class FXMLController extends Application implements Initializable {
 		}
 			
 		  
-		
-    }
-	
-
-	@FXML
-	public void handleAddButtonAction(ActionEvent event) {
-		Lute l = new Lute("Tets");
-		list.add(l);
-		model.addItem(l);
     }
 
 	@FXML

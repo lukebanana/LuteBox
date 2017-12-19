@@ -30,7 +30,7 @@ public class ObjectDB implements LBDatabaseHandler{
 	    
 	    // Store 200 Test objects in the database:
 	    for (short i = 0; i < 200; i++) {
-	        Lute l = new Lute("TestLute"+i, (short)(1800+i), "Ref"+i);
+	        Lute l = new Lute("TestLute"+i, "Ref"+i, (short)(1800+i));
 	        em.persist(l);
 	    }
 	    em.getTransaction().commit();
