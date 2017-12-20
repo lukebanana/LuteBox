@@ -1,5 +1,8 @@
 package ch.labegg.lutebox.model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -36,11 +39,17 @@ public class MainModel implements DataModel {
 	public void addItem(Lute lute) {
 		db.insertSingle(lute);
 	}
-	
 
 	@Override
 	public void removeItem(Lute lute) {
-		db.delete(lute);
+		try {
+			if(Files.deleteIfExists( Paths.get(lute.getFilePath()) )) {
+				db.delete(lute);
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot delete file!");
+			e.printStackTrace();
+		}
 	}
 
 

@@ -81,8 +81,8 @@ public class FXMLMainController extends Application implements Initializable {
 		    	loader.setRoot(scrollPane);
 		    loader.load();
 		 
-		    	Scene scene1 = new Scene(scrollPane);	
-		    	window.setScene(scene1);		
+		    	Scene scene = new Scene(scrollPane);	
+		    	window.setScene(scene);		
 		    	window.centerOnScreen();
 			
 		   	
@@ -141,11 +141,17 @@ public class FXMLMainController extends Application implements Initializable {
 
 	@FXML
 	public void handleDeleteButtonAction(ActionEvent event) {
-		ObservableList<Lute> selectedItems = tableView.getSelectionModel().getSelectedItems();
-		for(Lute item : selectedItems) {
-			tableView.getItems().remove(item);
-			model.removeItem(item);
+		boolean result = ConfirmBox.display("Eintrag löschen", "Are you sure you want to delete the selected items?", 380, 120);
+		
+		if(result) {
+			ObservableList<Lute> selectedItems = tableView.getSelectionModel().getSelectedItems();
+			for(Lute item : selectedItems) {
+				tableView.getItems().remove(item);
+				model.removeItem(item);
+			}
 		}
+		
+	
     }
 	
 	@FXML
