@@ -2,7 +2,6 @@ package ch.labegg.lutebox.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import ch.labegg.lutebox.config.LBConfig;
@@ -16,22 +15,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class FXMLMainController extends Application implements Initializable {
 
+	@FXML private ScrollPane scrollPane;
 	@FXML private BorderPane borderPane;
 
 	@FXML private Menu menuFile;
@@ -43,13 +45,13 @@ public class FXMLMainController extends Application implements Initializable {
 	
 	@FXML private VBox listlayout;
 	@FXML private TableView<Lute> tableView;
+	@FXML private TableColumn<Lute, Image> colHasImg;
     @FXML private TableColumn<Lute, String> colRefNr;
     @FXML private TableColumn<Lute, String> colName;
     @FXML private TableColumn<Lute, Short> colYear;
     
 	@FXML private VBox bottomlayout;
-	
-    
+		
 	private DataModel model = new MainModel();
 	private ObservableList<Lute> list = null;
 
@@ -72,14 +74,14 @@ public class FXMLMainController extends Application implements Initializable {
 		window.setTitle("LuteBox");
 		
 	    try {
-		    	borderPane = new BorderPane();
-
+	    		scrollPane = new ScrollPane();
+	    		
 		    	loader.setResources(model.getRessourceBundle());
 		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
-		    	loader.setRoot(borderPane);
+		    	loader.setRoot(scrollPane);
 		    loader.load();
 		 
-		    	Scene scene1 = new Scene(borderPane);	
+		    	Scene scene1 = new Scene(scrollPane);	
 		    	window.setScene(scene1);		
 		    	window.centerOnScreen();
 			
@@ -106,6 +108,7 @@ public class FXMLMainController extends Application implements Initializable {
 		leftMenu.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 		
 		// Data Mapping
+		colHasImg.setCellValueFactory(new PropertyValueFactory<>("filePath"));
 		colRefNr.setCellValueFactory(new PropertyValueFactory<>("referenceNr"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
@@ -127,34 +130,13 @@ public class FXMLMainController extends Application implements Initializable {
 	
 	
 	@FXML
-	public void handleButtonAction(ActionEvent event) {
-
-		System.out.println("You clicked me!");
-		
-		try {
-			loader.setResources(model.getRessourceBundle());
-		 	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/CreateItemView.fxml"));
-		 	// Create a controller instance
-	        FXMLCreateController ccontroller = new FXMLCreateController(model, list);
-	        // Set it in the FXMLLoader
-	        loader.setController(ccontroller);
-		 	
-	      	Parent root = (Parent)loader.load();
-	      	
-	     
-			Scene sceneCreate = new Scene(root, 800, 400);	
-			Stage stage2 = new Stage();
-			stage2.initModality(Modality.APPLICATION_MODAL); // Block user from clicking away
-			stage2.setScene(sceneCreate);	
-			stage2.centerOnScreen();
-			stage2.show();
-		
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-			
-		  
+	public void handleAddButtonAction(ActionEvent event) {
+        FXMLCreateController ccontroller = new FXMLCreateController(model, list);
+    }
+	
+	@FXML
+	public void handleViewImageAction(ActionEvent event) {
+		FXMLImageViewWindow imgcontroller = new FXMLImageViewWindow(model, tableView.getSelectionModel().getSelectedItem());
     }
 
 	@FXML

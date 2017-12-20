@@ -6,46 +6,54 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.TextField?>
-<fx:root type="javafx.scene.layout.BorderPane" fx:id="borderPane" fx:controller="ch.labegg.lutebox.controller.FXMLMainController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
-    <top>
-    		<MenuBar fx:id="menuBar">
-	    		 <Menu text="%fileMenuName">
-	            <items>
-	               <MenuItem text="%fileMenuNew"/>
-	               <MenuItem text="%fileMenuOpen"/>
-	               <MenuItem text="%fileMenuSave" onAction="#handleSaveAction"/>
-	               <SeparatorMenuItem  />
-	               <MenuItem text="%fileMenuExit" onAction="#handleCloseAction"/>
-	            </items>
-	         </Menu>
-	    		<Menu text="%fileMenuEdit"></Menu>
-	    		<Menu text="%fileMenuHelp"></Menu>
-        </MenuBar>
-    </top>
-    <left>
-		<VBox fx:id="leftMenu">
-			<Button text="%deleteListItem" onAction="#handleDeleteButtonAction" />
-		    <Button text="%createListItem" onAction="#handleButtonAction" />
-		</VBox>
-	</left>
-    <center>
-    		<VBox fx:id="listlayout">
-    			<TableView fx:id="tableView">
-    				<columns>
-	    				<TableColumn fx:id="colRefNr" text="%colReferenceNr">
-				      <cellValueFactory>
-				        <PropertyValueFactory property="referenceNr" />
-				      </cellValueFactory>
-	    				</TableColumn>
-		    			<TableColumn fx:id="colName" text="%colName"></TableColumn>
-		          	<TableColumn fx:id="colYear" text="%colYear"></TableColumn>
-	          	</columns> 
-    			</TableView>
-    		</VBox>
-    </center>
-      <bottom>
-    		<VBox fx:id="bottomlayout">
-    			
-    		</VBox>
-    </bottom>
+<?import javafx.scene.control.ScrollPane?>
+
+<fx:root type="javafx.scene.control.ScrollPane" fx:id="scrollPane"
+	fx:controller="ch.labegg.lutebox.controller.FXMLMainController" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true">
+	<content>
+		<BorderPane fx:id="borderPane">
+
+			<top>
+				<MenuBar fx:id="menuBar">
+					<Menu text="%fileMenuName">
+						<items>
+							<MenuItem text="%fileMenuNew" />
+							<MenuItem text="%fileMenuOpen" />
+							<MenuItem text="%fileMenuSave" onAction="#handleSaveAction" />
+							<SeparatorMenuItem />
+							<MenuItem text="%fileMenuExit" onAction="#handleCloseAction" />
+						</items>
+					</Menu>
+					<Menu text="%fileMenuEdit"></Menu>
+					<Menu text="%fileMenuHelp"></Menu>
+				</MenuBar>
+			</top>
+			<left>
+				<VBox fx:id="leftMenu">
+					<Button text="%deleteListItem" onAction="#handleDeleteButtonAction" />
+					<Button text="%createListItem" onAction="#handleAddButtonAction" />
+					<Button text="%showImage" onAction="#handleViewImageAction" />
+				</VBox>
+			</left>
+			<center>
+				<VBox fx:id="listlayout">
+					<TableView fx:id="tableView">
+						<columns>
+							<TableColumn fx:id="colHasImg" text="%colHasImg"></TableColumn>
+							<TableColumn fx:id="colRefNr" text="%colReferenceNr"></TableColumn>
+							<TableColumn fx:id="colName" text="%colName"></TableColumn>
+							<TableColumn fx:id="colYear" text="%colYear"></TableColumn>
+						</columns>
+					</TableView>
+				</VBox>
+			</center>
+			<bottom>
+				<VBox fx:id="bottomlayout">
+
+				</VBox>
+			</bottom>
+
+		</BorderPane>
+	</content>
 </fx:root>

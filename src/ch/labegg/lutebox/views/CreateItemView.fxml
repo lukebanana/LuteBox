@@ -7,25 +7,42 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
-	<top>
-		<Label fx:id="heading" text="%createListItem" />
-	</top>
-    <center>
-    		<GridPane fx:id="formGrid" alignment="center" hgap="10" vgap="10">
-    			<Label fx:id="heading" text="%inputReferenceNr" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-	      	<TextField fx:id="textInputRefNr" promptText="%inputReferenceNr" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-			
-			<Label fx:id="heading" text="%inputName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-			<TextField fx:id="textInputName" promptText="%inputName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-	  		
-	  		<Label fx:id="heading" text="%inputYear" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-	  		<TextField fx:id="textInputYear" promptText="%inputYear" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-  		</GridPane>
-    </center>
-    <bottom>
-    	  	<HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
-	     	<Button text="%addListItem" onAction="#handleAddButtonAction" />  	
-		</HBox>
-    </bottom>
-</BorderPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane fx:id="scrollPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true" >
+    <content>
+		<BorderPane fx:id="borderPane">
+			<top>
+				<Label fx:id="heading" text="%createListItem" />
+				
+			</top>
+		    <center>
+		    		<GridPane fx:id="formGrid" alignment="center" hgap="10" vgap="10">
+		    			<ImageView fx:id="imageView" GridPane.columnIndex="1" GridPane.rowIndex="1" pickOnBounds="true" preserveRatio="true">
+				      <image>
+				      </image>
+				    </ImageView>
+				    
+			    		<Button fx:id="uploadImage" GridPane.columnIndex="1" GridPane.rowIndex="2" text="%uploadImage" onAction="#handleUploaduttonAction" />
+		    			
+		    			<Label fx:id="heading" text="%inputReferenceNr" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+			      	<TextField fx:id="textInputRefNr" promptText="%inputReferenceNr" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+		
+					
+					<Label fx:id="heading" text="%inputName" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+					<TextField fx:id="textInputName" promptText="%inputName" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+			  		
+			  		<Label fx:id="heading" text="%inputYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+			  		<TextField fx:id="textInputYear" promptText="%inputYear" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+		  		
+		  		</GridPane>
+		    </center>
+		    <bottom>
+		    	  	<HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
+			     	<Button fx:id="saveLute" text="%addListItem" onAction="#handleAddButtonAction" />  	
+				</HBox>
+		    </bottom>
+		</BorderPane>
+    </content>
+</ScrollPane>
