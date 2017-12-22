@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
+<fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hmin="720.0" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" vmin="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
 	<content>
 		<BorderPane fx:id="borderPane">
 

@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 
 public class FXMLMainController extends Application implements Initializable {
 
-	@FXML private ScrollPane scrollPane;
+	@FXML private ScrollPane scrollPane = new ScrollPane();
 	@FXML private BorderPane borderPane;
 
 	@FXML private Menu menuFile;
@@ -75,12 +75,18 @@ public class FXMLMainController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
+		window.setHeight(640);
+		window.setWidth(720);
+ 		window.centerOnScreen();
 		window.setMaximized(true);
 		window.setTitle("LuteBox");
-		
-	    try {
-	    		scrollPane = new ScrollPane();
-	    		
+
+	    	window.setOnCloseRequest(e -> {
+			e.consume(); // Stops java from closing Program
+			closeProgram(primaryStage);
+		});
+	
+	    try {	    		
 		    	loader.setResources(model.getRessourceBundle());
 		    	loader.setLocation(getClass().getResource("/ch/labegg/lutebox/views/MainWindow.fxml"));
 		    	loader.setRoot(scrollPane);
@@ -88,13 +94,6 @@ public class FXMLMainController extends Application implements Initializable {
 		 
 		    	Scene scene = new Scene(scrollPane);	
 		    	window.setScene(scene);		
-		    	window.centerOnScreen();
-			
-		   	
-		    	window.setOnCloseRequest(e -> {
-				e.consume(); // Stops java from closing Program
-				closeProgram(primaryStage);
-			});
 			
 		    	window.show();
 		
