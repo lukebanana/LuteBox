@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -75,10 +76,9 @@ public class FXMLMainController extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
-		window.setHeight(640);
-		window.setWidth(720);
  		window.centerOnScreen();
-		window.setMaximized(true);
+ 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
 		window.setTitle("LuteBox");
 
 	    	window.setOnCloseRequest(e -> {
@@ -92,7 +92,7 @@ public class FXMLMainController extends Application implements Initializable {
 		    	loader.setRoot(scrollPane);
 		    loader.load();
 		 
-		    	Scene scene = new Scene(scrollPane);	
+		    	Scene scene = new Scene(scrollPane, screenBounds.getWidth(), screenBounds.getHeight());	
 		    	window.setScene(scene);		
 			
 		    	window.show();
