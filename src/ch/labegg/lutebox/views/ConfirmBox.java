@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ch.labegg.lutebox.config.LBConfig;
 import javafx.geometry.*;
 
 public class ConfirmBox {
@@ -18,7 +17,7 @@ public class ConfirmBox {
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL); // Block user from clicking away
 		window.setTitle(title);
-		window.setMinWidth(250);
+		window.setMinWidth(width);
 		
 		Label label = new Label(message);
 		Button btn = new Button("Yes");
@@ -28,7 +27,6 @@ public class ConfirmBox {
 			answer = true;
 			window.close();
 		});
-		
 		
 		btn2.setOnAction(e -> {
 			answer = false;
@@ -46,8 +44,7 @@ public class ConfirmBox {
 		layout.getChildren().addAll(label, hbox);
 		layout.setAlignment(Pos.CENTER);
 	
-		
-		
+			
 		Scene scene = new Scene(layout, width, height);
 		
 		window.setScene(scene);

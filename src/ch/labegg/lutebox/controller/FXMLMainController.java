@@ -22,13 +22,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -160,7 +158,7 @@ public class FXMLMainController extends Application implements Initializable {
 	}
 
 	private void closeProgram(Stage stage) {
-		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);
+		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 250, 120);
 				
 		if(result) {
 			stage.close();
