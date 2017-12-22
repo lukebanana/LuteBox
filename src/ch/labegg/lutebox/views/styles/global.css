@@ -1,0 +1,15 @@
+.about-window .pane {
+    -fx-background-color: #dfdfdf;
+}
+
+.window .pane {
+    -fx-background-color: #cfcfcf;
+}
+
+.window .left-box {
+    -fx-background-color: #cfcfcf;
+}
+
+.window .bottom-box {
+    -fx-background-color: #afafaf;
+}

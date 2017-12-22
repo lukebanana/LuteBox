@@ -43,7 +43,6 @@ public class ConfirmBox {
 	    hbox.getChildren().addAll(btn, btn2);
 
 		VBox layout = new VBox(20); 	// 20px spacing
-		layout.setStyle("-fx-background-color: "+LBConfig.PRIMARY_SKIN_COLOR+";");
 		layout.getChildren().addAll(label, hbox);
 		layout.setAlignment(Pos.CENTER);
 	

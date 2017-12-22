@@ -3,12 +3,6 @@ package ch.labegg.lutebox.config;
 import javafx.geometry.Insets;
 
 public class LBConfig {
-
-	public static String PRIMARY_SKIN_COLOR = "#FFFFFF";
-	public static String LIST_WINDOW_BG_COLOR = "#FFFFFF";
-	public static String BOTTOM_WINDOW_BG_COLOR = "#CCCCCC";
-	public static String MAIN_WINDOW_FONT_COLOR = "#336699";
-	public static String MAIN_WINDOW_BORDER_COLOR = "#336699";
 	
 	public static double LEFT_MENU_WIDTH_PERCENT = 20;
 	public static double LEFT_MENU_HEIGHT_PERCENT = 75;

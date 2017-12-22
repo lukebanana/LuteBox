@@ -76,7 +76,6 @@ public class MainView {
 		listlayout.setVgrow(listView, Priority.ALWAYS);
 		listlayout.getChildren().add(listView);
 		listlayout.setAlignment(Pos.TOP_CENTER);
-		listlayout.setStyle("-fx-background-color: "+LBConfig.LIST_WINDOW_BG_COLOR+";");
 		
 		borderPane.setCenter(listlayout);
 		
@@ -94,7 +93,6 @@ public class MainView {
 		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.getChildren().addAll(label1, btn1);
 		bottomlayout.setAlignment(Pos.CENTER);
-		bottomlayout.setStyle("-fx-background-color: "+LBConfig.BOTTOM_WINDOW_BG_COLOR+";");
 	
 		borderPane.setBottom(bottomlayout);
 		
@@ -116,7 +114,6 @@ public class MainView {
 		VBox layout2 = new VBox();
 		layout2.setAlignment(Pos.CENTER);
 		layout2.getChildren().addAll(label2, btn2);
-		layout2.setStyle("-fx-background-color: "+LBConfig.LIST_WINDOW_BG_COLOR+";");
 		scene2 = new Scene(layout2, 320, 400);
 		
 		

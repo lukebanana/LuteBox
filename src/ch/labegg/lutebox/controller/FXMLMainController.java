@@ -11,6 +11,8 @@ import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.ConfirmBox;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +24,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -41,7 +45,8 @@ public class FXMLMainController extends Application implements Initializable {
 	@FXML private Menu menuView;
 	@FXML private MenuBar menuBar;
 	
-	@FXML private VBox leftMenu;
+	@FXML private VBox leftBox;
+	@FXML private TextField searchFilter;
 	
 	@FXML private VBox listlayout;
 	@FXML private TableView<Lute> tableView;
@@ -92,7 +97,6 @@ public class FXMLMainController extends Application implements Initializable {
 			});
 			
 		    	window.show();
-			
 		
         } catch (IOException e) {
         		e.printStackTrace();
@@ -103,9 +107,9 @@ public class FXMLMainController extends Application implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		leftMenu.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
-		leftMenu.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
-		leftMenu.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
+		leftBox.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
+		leftBox.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
+		leftBox.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 		
 		// Data Mapping
 		colHasImg.setCellValueFactory(new PropertyValueFactory<>("filePath"));
@@ -122,7 +126,6 @@ public class FXMLMainController extends Application implements Initializable {
 		listlayout.setVgrow(tableView, Priority.ALWAYS);
 	
 
-		bottomlayout.setStyle("-fx-background-color: "+LBConfig.BOTTOM_WINDOW_BG_COLOR+";");
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
@@ -149,21 +152,13 @@ public class FXMLMainController extends Application implements Initializable {
 				tableView.getItems().remove(item);
 				model.removeItem(item);
 			}
-		}
-		
-	
+		}	
     }
-	
-	@FXML
-	private void handleSaveAction(final ActionEvent event) {
-		 System.out.println("Saved");   
-	}
-	
+		
 	@FXML
 	private void handleCloseAction(final ActionEvent event) {
 		closeProgram((Stage) borderPane.getScene().getWindow());
 	}
-	
 
 	private void closeProgram(Stage stage) {
 		boolean result = ConfirmBox.display("Before you go...", "Are you sure you want to exit?", 200, 120);
@@ -172,4 +167,51 @@ public class FXMLMainController extends Application implements Initializable {
 			stage.close();
 		}
 	}
+	
+	
+	@FXML
+	private void searchRecord(KeyEvent ke) {
+		 FilteredList<Lute> filterData = new FilteredList<>(list, p -> true);
+		 
+		 searchFilter.textProperty().addListener((observable, oldValue, newValue) -> {
+			 filterData.setPredicate(lute ->{
+
+				 if(newValue == null || newValue.isEmpty()){
+					 return true;
+				 }
+				 
+				 String typedText = newValue.toLowerCase();
+				 if(lute.getName().toLowerCase().indexOf(typedText) != -1){
+					 return true;
+				 }
+				 
+				 if(lute.getReferenceNr().toLowerCase().indexOf(typedText) != -1){
+					 return true;
+				 }
+				 
+				 if(Short.toString(lute.getYear()).toLowerCase().indexOf(typedText) != -1){
+					 return true;
+				 }
+				 
+				 return false;
+			 });
+		 });
+		 
+		 SortedList<Lute> sortedList = new SortedList<>(filterData);
+		 sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+		 tableView.setItems(sortedList);
+	}
+	
+	@FXML
+	private void resetSearch(final ActionEvent event) {
+		searchFilter.setText("");
+		tableView.setItems(list);
+	}
+	
+
+	@FXML
+	public void handleAboutAction(ActionEvent event) {
+		new FXMLAboutWindow(model);
+    }
+
 }

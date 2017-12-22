@@ -43,11 +43,12 @@ public class MainModel implements DataModel {
 	@Override
 	public void removeItem(Lute lute) {
 		try {
-			if(Files.deleteIfExists( Paths.get(lute.getFilePath()) )) {
-				db.delete(lute);
-			}
+			db.delete(lute);
+			if(lute.getFilePath() != "") {				
+				Files.deleteIfExists( Paths.get(lute.getFilePath()) );
+			}			
 		} catch (IOException e) {
-			System.out.println("Cannot delete file!");
+			System.out.println("Cannot delete file. Path to file: " + lute.getFilePath() );
 			e.printStackTrace();
 		}
 	}

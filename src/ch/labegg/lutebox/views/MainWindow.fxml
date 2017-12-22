@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Priority?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ScrollPane?>
 
-<fx:root type="javafx.scene.control.ScrollPane" fx:id="scrollPane"
-	fx:controller="ch.labegg.lutebox.controller.FXMLMainController" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true">
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
 	<content>
 		<BorderPane fx:id="borderPane">
 
@@ -18,42 +22,69 @@
 				<MenuBar fx:id="menuBar">
 					<Menu text="%fileMenuName">
 						<items>
-							<MenuItem text="%fileMenuNew" />
 							<MenuItem text="%fileMenuOpen" />
-							<MenuItem text="%fileMenuSave" onAction="#handleSaveAction" />
 							<SeparatorMenuItem />
-							<MenuItem text="%fileMenuExit" onAction="#handleCloseAction" />
+							<MenuItem onAction="#handleCloseAction" text="%fileMenuExit" />
 						</items>
 					</Menu>
-					<Menu text="%fileMenuEdit"></Menu>
-					<Menu text="%fileMenuHelp"></Menu>
+					<Menu text="%editMenuName">
+						<items>
+							<MenuItem onAction="#handleAddButtonAction" text="%editMenuNew" />
+						</items>
+					</Menu>
+					<Menu text="%helpMenuName">
+					<items>
+							<MenuItem onAction="#handleAboutAction" text="%helpMenuAbout" />
+					</items>
+					</Menu>
 				</MenuBar>
 			</top>
 			<left>
-				<VBox fx:id="leftMenu">
-					<Button text="%deleteListItem" onAction="#handleDeleteButtonAction" />
-					<Button text="%createListItem" onAction="#handleAddButtonAction" />
-					<Button text="%showImage" onAction="#handleViewImageAction" />
+				<VBox fx:id="leftBox">
+					<Button onAction="#handleDeleteButtonAction" text="%deleteListItem" />
+					<Button onAction="#handleAddButtonAction" text="%createListItem" />
+					<Button onAction="#handleViewImageAction" text="%showImage" />
+					
+					<Label fx:id="searchHeading" text="%searchHeading" />
+			      	<TextField fx:id="searchFilter" onKeyTyped="#searchRecord" promptText="%searchHeading" />
+			      	<Button onAction="#resetSearch" text="%clearSearch" />
+			
+					<styleClass>
+						<String fx:value="pane" />
+						<String fx:value="left-box" />
+					</styleClass>
 				</VBox>
 			</left>
 			<center>
 				<VBox fx:id="listlayout">
 					<TableView fx:id="tableView">
 						<columns>
-							<TableColumn fx:id="colHasImg" text="%colHasImg"></TableColumn>
-							<TableColumn fx:id="colRefNr" text="%colReferenceNr"></TableColumn>
-							<TableColumn fx:id="colName" text="%colName"></TableColumn>
-							<TableColumn fx:id="colYear" text="%colYear"></TableColumn>
+							<TableColumn fx:id="colHasImg" text="%colHasImg" />
+							<TableColumn fx:id="colRefNr" text="%colReferenceNr" />
+							<TableColumn fx:id="colName" text="%colName" />
+							<TableColumn fx:id="colYear" text="%colYear" />
 						</columns>
+						<sortOrder>
+					    		<fx:reference source="colRefNr" />
+					    </sortOrder> 
 					</TableView>
 				</VBox>
 			</center>
 			<bottom>
 				<VBox fx:id="bottomlayout">
-
+	
+					<styleClass>
+						<String fx:value="pane" />
+						<String fx:value="bottom-box" />
+					</styleClass>
 				</VBox>
 			</bottom>
 
 		</BorderPane>
 	</content>
+   <styleClass>
+		<String fx:value="pane" />
+		<String fx:value="window" />
+		<String fx:value="main-window" />
+   </styleClass>
 </fx:root>
