@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,8 +11,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hmin="720.0" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" vmin="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
 	<content>
 		<BorderPane fx:id="borderPane">
@@ -72,6 +73,22 @@
 			</center>
 			<bottom>
 				<VBox fx:id="bottomlayout">
+	
+					<GridPane fx:id="formGrid" alignment="center" hgap="10" vgap="10">
+			    			<ImageView fx:id="imageView" GridPane.columnIndex="1" GridPane.rowIndex="1" pickOnBounds="true" preserveRatio="true">
+					      <image>
+					      </image>
+					    </ImageView>
+					    
+			    			
+			    			<Label fx:id="heading" text="%inputReferenceNr" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				      
+						
+						<Label fx:id="heading" text="%inputName" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+					
+				  		<Label fx:id="heading" text="%inputYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+				  		
+		  			</GridPane>
 	
 					<styleClass>
 						<String fx:value="pane" />

@@ -138,6 +138,7 @@ public class FXMLMainController extends Application implements Initializable {
 	public void handleViewImageAction(ActionEvent event) {
 		FXMLImageViewWindow imgcontroller = new FXMLImageViewWindow(model, tableView.getSelectionModel().getSelectedItem());
     }
+	
 
 	@FXML
 	public void handleDeleteButtonAction(ActionEvent event) {

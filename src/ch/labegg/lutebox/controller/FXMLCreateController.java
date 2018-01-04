@@ -55,7 +55,7 @@ public class FXMLCreateController implements Initializable {
 	private Stage stage;
 	private DataModel model = null;
 	private ObservableList<Lute> list = null;
-
+	
 	private FXMLLoader loader = new FXMLLoader();
 	
 	public FXMLCreateController(DataModel model, ObservableList<Lute> list) {
@@ -106,66 +106,35 @@ public class FXMLCreateController implements Initializable {
 	@FXML
 	public void handleAddButtonAction(ActionEvent event) {
 		String name = textInputName.getText().trim();
-		boolean hasError = false;
+		boolean validateSuccessful = false;
 		
-		if (!name.equals(null) || name.length() != 0) {
-			
-			
-			String yearString = textInputYear.getText().trim();
-			
-			
-			Lute l = new Lute(
-					name, 
-					textInputRefNr.getText().trim()
-			);
-
-			if(yearString != "") {
-				short year = Short.parseShort(yearString);
-				l.setYear(year);
-			}
-			
-			if (bufferedImage != null) {
-				try {
-					boolean folderCreated = true;
+		if (name != null) {
+			if(name.length() != 0) {
+				String yearString = textInputYear.getText().trim();
+				
+				Lute l = new Lute(
+						name, 
+						textInputRefNr.getText().trim()
+				);
 	
-					File folder = new File("res/images/");
-	
-					if (!folder.exists()) {
-						folderCreated = folder.mkdirs();
-					}
-	
-					if (folderCreated) {
-						String filePath = "res/images/" + file.getName();
-						File outputfile = new File(filePath);
-
-						if (ImageIO.write(bufferedImage, "png", outputfile)) {
-							l.setFilePath(filePath);
-							//AlertBox.display("Success", "Image successfully saved!", 300, 200);							
-						} else {
-							AlertBox.display("Error", "Error: Image not saved!", 300, 200);
-							hasError = true;
-						}
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					hasError = true;
-				} catch (SecurityException se) {
-					se.printStackTrace();
-					hasError = true;
+				if(yearString != "") {
+					short year = Short.parseShort(yearString);
+					l.setYear(year);
 				}
-			}else {
-				// Kein Bild gespeichert
-				//AlertBox.display("Error", "Error: Image not saved! bufferedImage == null", 300, 200);
 				
-			}
+				validateSuccessful = FieldValidator.validateImage(bufferedImage, file);	
 				
-
-			list.add(l);
-			model.addItem(l);
-			
-			if(!hasError) {
-				stage.close();
+				if(validateSuccessful) {
+					list.add(l);
+					model.addItem(l);
+					if(file != null) {
+						l.setFilePath("res/images/" + file.getName());
+					}
+					stage.close();
+				}
 			}
+		}else {
+			validateSuccessful = false;
 		}
     }
 	
@@ -181,16 +150,18 @@ public class FXMLCreateController implements Initializable {
          
         //Show open file dialog
         file = fileChooser.showOpenDialog(null);
-        System.out.println(file.getName());
                   
-        try {
-            bufferedImage = ImageIO.read(file);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-           
-            imageView.setFitWidth(210);
-            imageView.setImage(image);
-        } catch (IOException e) {
-        		e.printStackTrace();
+        
+        if(file != null){
+	        try {
+	            bufferedImage = ImageIO.read(file);
+	            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+	           
+	            imageView.setFitWidth(210);
+	            imageView.setImage(image);
+	        } catch (IOException e) {
+	        		e.printStackTrace();
+	        }
         }
     }
 	
