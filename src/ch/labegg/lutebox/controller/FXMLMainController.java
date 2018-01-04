@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.MasterDetailPane;
+import org.controlsfx.control.PropertySheet;
+
 import ch.labegg.lutebox.config.LBConfig;
 import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.MainModel;
@@ -18,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -117,7 +121,14 @@ public class FXMLMainController extends Application implements Initializable {
 		list = this.model.getList();
         
 		tableView.setItems(list);
-        
+		
+		MasterDetailPane pane = new MasterDetailPane();
+		pane.setMasterNode(tableView);
+		PropertySheet propertySheet = new PropertySheet();
+		pane.setDetailNode(propertySheet);
+		pane.setDetailSide(Side.BOTTOM);
+		pane.setShowDetailNode(true);
+		 
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
 		listlayout.setVgrow(tableView, Priority.ALWAYS);
