@@ -14,12 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
@@ -28,10 +29,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -55,8 +61,14 @@ public class FXMLMainController extends Application implements Initializable, Re
     @FXML private TableColumn<Lute, String> colName;
     @FXML private TableColumn<Lute, Short> colYear;
     
-	@FXML private VBox bottomlayout;
-		
+	@FXML private HBox bottomlayout;
+	@FXML private ImageView imageView;
+	@FXML private Button editItemButton;
+	@FXML private Text textReferenceNr;
+	@FXML private Text textName;
+	@FXML private Text textYear;
+
+	
 	private DataModel model = new MainModel();
 	private ObservableList<Lute> list = null;
 
@@ -104,6 +116,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		editItemButton.setVisible(false);
 		
 		leftBox.setPrefWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		leftBox.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
@@ -118,21 +131,44 @@ public class FXMLMainController extends Application implements Initializable, Re
 		list = this.model.getList();
         
 		tableView.setItems(list);
-
+		tableView.getSelectionModel().selectedItemProperty().addListener((observer, oldSelection, newSelection) -> {			
+			if (newSelection != null) {
+		    		loadItemToDetailView(newSelection);
+		    		editItemButton.setVisible(true);
+		    }
+		});
+		
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
 		listlayout.setVgrow(tableView, Priority.ALWAYS);
 	
-
+	
+		
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
-		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
+		//bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 	
-		bottomlayout.getChildren().add(new Label("test"));
-			 
+		imageView.setFitWidth(Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.GLOBAL_IMAGE_THUMBNAIL_WIDTH);
+		
+		imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+		     @Override
+		     public void handle(MouseEvent event) {
+		    	 	event.consume();
+		        showImageWindow();
+		     }
+		});
 	}	
 	
 	
+	private void loadItemToDetailView(Lute item) {
+		textReferenceNr.setText(item.getReferenceNr());
+		textName.setText(item.getName());
+		textYear.setText(Short.toString(item.getYear()));
+		imageView.setImage(item.getImage());
+		
+	}
+
+
 	@FXML
 	public void handleAddButtonAction(ActionEvent event) {
 		FXMLCreateEditController cecontroller = new FXMLCreateEditController(model, list);
@@ -145,6 +181,10 @@ public class FXMLMainController extends Application implements Initializable, Re
 	
 	@FXML
 	public void handleViewImageAction(ActionEvent event) {
+		showImageWindow();
+	}
+	
+	public void showImageWindow() {
 		FXMLImageViewWindow imgcontroller = new FXMLImageViewWindow(model, tableView.getSelectionModel().getSelectedItem());
     }
 	

@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ScrollPane?>
+<?import org.controlsfx.glyphfont.*?>
 <ScrollPane fx:id="scrollPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true" >
     <content>
-		<BorderPane fx:id="borderPane">
-			<top>
-				<Label fx:id="heading" text="%createListItem" />
-			</top>
-		    <center>
-	    			<ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
-			      <image>
-			      </image>
-			    </ImageView>
-		    </center>
-		   
-		</BorderPane>
+	    <AnchorPane>	    
+			<BorderPane fx:id="borderPane">
+			    <center>
+		    			<ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+				      <image>
+				      </image>
+				    </ImageView>
+			    </center>
+			</BorderPane>
+			
+			
+			<Button onAction="#handleDownloadImageAction" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="32.0">
+				<graphic>
+			        <Glyph fontFamily="FontAwesome" icon="DOWNLOAD" />
+			    </graphic>
+		    </Button>
+			
+		</AnchorPane>
+		
     </content>
+    
 </ScrollPane>
