@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.controlsfx.control.MasterDetailPane;
-import org.controlsfx.control.PropertySheet;
-
 import ch.labegg.lutebox.config.LBConfig;
 import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.MainModel;
@@ -21,8 +18,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
@@ -38,7 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class FXMLMainController extends Application implements Initializable {
+public class FXMLMainController extends Application implements Initializable, RefreshableList {
 
 	@FXML private ScrollPane scrollPane = new ScrollPane();
 	@FXML private BorderPane borderPane;
@@ -121,14 +118,7 @@ public class FXMLMainController extends Application implements Initializable {
 		list = this.model.getList();
         
 		tableView.setItems(list);
-		
-		MasterDetailPane pane = new MasterDetailPane();
-		pane.setMasterNode(tableView);
-		PropertySheet propertySheet = new PropertySheet();
-		pane.setDetailNode(propertySheet);
-		pane.setDetailSide(Side.BOTTOM);
-		pane.setShowDetailNode(true);
-		 
+
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
 		listlayout.setVgrow(tableView, Priority.ALWAYS);
@@ -137,13 +127,21 @@ public class FXMLMainController extends Application implements Initializable {
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
+	
+		bottomlayout.getChildren().add(new Label("test"));
+			 
 	}	
 	
 	
 	@FXML
 	public void handleAddButtonAction(ActionEvent event) {
-        FXMLCreateController ccontroller = new FXMLCreateController(model, list);
-    }
+		FXMLCreateEditController cecontroller = new FXMLCreateEditController(model, list);
+    }	
+	
+	@FXML
+	public void handleEditButtonAction(ActionEvent event) {
+		FXMLCreateEditController cecontroller = new FXMLCreateEditController(model, list, tableView.getSelectionModel().getSelectedItem(), this);
+	}
 	
 	@FXML
 	public void handleViewImageAction(ActionEvent event) {
@@ -222,5 +220,18 @@ public class FXMLMainController extends Application implements Initializable {
 	public void handleAboutAction(ActionEvent event) {
 		new FXMLAboutWindow(model);
     }
+	
+	/**
+	 * Refreshes the list. This is only necessary if an item that is already in
+	 * the table is changed. New and deleted items are refreshed automatically.
+	 */
+	public void refresh() {
+	  int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+	  tableView.setItems(null);
+	  tableView.layout();
+	  tableView.setItems(model.getList());
+	  // Must set the selected index again
+	  tableView.getSelectionModel().select(selectedIndex);
+	}
 
 }

@@ -81,5 +81,14 @@ public class Lute implements Serializable  {
 		this.year = year; 
 	}
 
+	public void setRefNr(String referenceNr) {
+		this.referenceNr = referenceNr; 
+		
+	}
+
+	public void setName(String name) {
+		this.name = name; 
+	}
+
 	
 }

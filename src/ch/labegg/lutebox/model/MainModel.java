@@ -64,5 +64,10 @@ public class MainModel implements DataModel {
 		return bundle;
 	}
 
+	@Override
+	public void updateItem(Lute l) {
+		db.update(l);		
+	}
+
 	
 }

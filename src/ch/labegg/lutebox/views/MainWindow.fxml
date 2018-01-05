@@ -44,6 +44,7 @@
 				<VBox fx:id="leftBox">
 					<Button onAction="#handleDeleteButtonAction" text="%deleteListItem" />
 					<Button onAction="#handleAddButtonAction" text="%createListItem" />
+					<Button onAction="#handleEditButtonAction" text="%editListItem" />
 					<Button onAction="#handleViewImageAction" text="%showImage" />
 					
 					<Label fx:id="searchHeading" text="%searchHeading" />

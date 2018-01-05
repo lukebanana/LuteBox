@@ -41,7 +41,7 @@
 		    </center>
 		    <bottom>
 		    	  	<HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
-			     	<Button fx:id="saveLute" text="%addListItem" onAction="#handleAddButtonAction" />  	
+			     	<Button fx:id="confirmItem" text="%addListItem" onAction="#handleAddButtonAction" />  	
 				</HBox>
 		    </bottom>
 		    
