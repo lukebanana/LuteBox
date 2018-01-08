@@ -130,7 +130,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 			 
-		
 		colImg.setCellFactory(new Callback<TableColumn<Lute, String>, TableCell<Lute, String>>(){        
 		    @Override
 		    public TableCell<Lute, String> call(TableColumn<Lute, String> param) {      
@@ -142,8 +141,12 @@ public class FXMLMainController extends Application implements Initializable, Re
 		        			if(item != null) {
 			        			if (!item.equals("")) {
 			        		    	 	setGraphic(new Glyph("FontAwesome", FontAwesome.Glyph.IMAGE));
+			        		    }else {
+			        		    	 	setGraphic(null);
 			        		    }
-		        			}
+		        			}else {
+		        		    	 	setGraphic(null);
+		        		    }
 		            }
 		        };               
 		        		        
@@ -161,10 +164,12 @@ public class FXMLMainController extends Application implements Initializable, Re
 		        return cell;
 		    }
 		});
-		
+	
+
 		list = this.model.getList();
         
 		tableView.setItems(list);
+
 		tableView.getSelectionModel().selectedItemProperty().addListener((observer, oldSelection, newSelection) -> {			
 			if (newSelection != null) {
 		    		loadItemToDetailView(newSelection);
@@ -198,7 +203,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 		textName.setText(item.getName());
 		textYear.setText(Short.toString(item.getYear()));
 		imageView.setImage(item.getImage());
-		
 	}
 
 
@@ -255,12 +259,12 @@ public class FXMLMainController extends Application implements Initializable, Re
 		 
 		 searchFilter.textProperty().addListener((observable, oldValue, newValue) -> {
 			 filterData.setPredicate(lute ->{
-
 				 if(newValue == null || newValue.isEmpty()){
 					 return true;
 				 }
 				 
 				 String typedText = newValue.toLowerCase();
+				 
 				 if(lute.getName().toLowerCase().indexOf(typedText) != -1){
 					 return true;
 				 }
