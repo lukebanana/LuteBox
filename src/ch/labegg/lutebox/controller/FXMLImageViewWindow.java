@@ -17,12 +17,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
@@ -66,7 +68,7 @@ public class FXMLImageViewWindow implements Initializable  {
 			borderPane.setPrefHeight(scene.getHeight());
 			imageView.setFitWidth(scene.getWidth());
 		    imageView.setFitHeight(scene.getHeight());
-			
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,8 +98,18 @@ public class FXMLImageViewWindow implements Initializable  {
         });
 		
 		//borderPane.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);	
-
+	    
+	    
+	    EventHandler<MouseEvent> imageHoverHandler = new EventHandler<MouseEvent>() {
+		     @Override
+		     public void handle(MouseEvent event) {		
+		    	 	imageView.setCursor(Cursor.CROSSHAIR); //Change cursor to hand
+		     }
+		};
 		
+		imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, imageHoverHandler);
+		
+				
 		if(currentItem != null) {
 			if(currentItem.getFilePath() != "") {
 				// simple displays ImageView the image as is
@@ -105,14 +117,14 @@ public class FXMLImageViewWindow implements Initializable  {
 				imageView.setImage(currentImage);		   
 			   
 			}else {
-				showMessage();
+				showNoImgMessage();
 			}
 		}else {
-			showMessage();
+			showNoImgMessage();
 		}
 	}
 
-	private void showMessage() {
+	private void showNoImgMessage() {
 		borderPane.setCenter(new Label("Kein Bild vorhanden."));
 	}		
 	

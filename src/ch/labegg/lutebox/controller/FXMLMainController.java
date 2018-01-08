@@ -105,11 +105,11 @@ public class FXMLMainController extends Application implements Initializable, Re
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
+ 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+ 		
 		window = primaryStage;
  		window.centerOnScreen();
- 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
 		window.setTitle("LuteBox");
 
 	    	window.setOnCloseRequest(e -> {
@@ -217,8 +217,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 		     }
 		});
 		
-		textAreaNotes.setPrefRowCount(10);
-		textAreaNotes.setPrefColumnCount(100);
+		// Make TextArea not editable
 		textAreaNotes.setEditable(false);
 		textAreaNotes.setFocusTraversable(false);
 	}	
