@@ -21,11 +21,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -86,6 +88,17 @@ public class FXMLMainController extends Application implements Initializable, Re
 	private FXMLLoader loader = new FXMLLoader();
 	private Stage window;
 
+	private 	EventHandler<MouseEvent> imageHoverHandler = new EventHandler<MouseEvent>() {
+	     @Override
+	     public void handle(MouseEvent event) {
+				
+	    	 
+	    	 	System.out.println("Entered");
+				
+	    	 	imageView.setCursor(Cursor.HAND); //Change cursor to hand
+	     }
+	};
+	
 	
 	public static void main(String[] args) {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LuteBox");
@@ -201,9 +214,20 @@ public class FXMLMainController extends Application implements Initializable, Re
 		     @Override
 		     public void handle(MouseEvent event) {
 		    	 	event.consume();
-		        showImageWindow();
+		    	 	
+		    	 	if(tableView.getSelectionModel().getSelectedItem().hasImage()) {
+		    	 		showImageWindow();
+		    	 	}
 		     }
 		});
+		
+		imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		     @Override
+		     public void handle(MouseEvent event) {
+		    	 	imageView.setCursor(Cursor.HAND); //Change cursor to hand
+		     }
+		});
+		
 		
 		textAreaNotes.setPrefRowCount(10);
 		textAreaNotes.setPrefColumnCount(100);
@@ -217,11 +241,15 @@ public class FXMLMainController extends Application implements Initializable, Re
 		textName.setText(item.getName());
 		textYear.setText(Short.toString(item.getYear()));
 		textAreaNotes.setText(item.getNotes());
-				
+	
 		if(item.hasImage()) {
 			imageView.setImage(item.getImage());
+			imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, imageHoverHandler);
+			
 		}else {
+			
 			imageView.setImage( new Image(getClass().getResourceAsStream("/images/gui/placeholder.jpg")) );
+			imageView.removeEventHandler(MouseEvent.MOUSE_ENTERED, imageHoverHandler);
 		}
 	}
 
