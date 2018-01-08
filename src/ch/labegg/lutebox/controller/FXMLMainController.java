@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.glyphfont.*;
+
 import ch.labegg.lutebox.config.LBConfig;
 import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.MainModel;
@@ -28,18 +30,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class FXMLMainController extends Application implements Initializable, RefreshableList {
 
@@ -56,7 +58,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 	
 	@FXML private VBox listlayout;
 	@FXML private TableView<Lute> tableView;
-	@FXML private TableColumn<Lute, Image> colHasImg;
+	@FXML private TableColumn<Lute, String> colImg;
     @FXML private TableColumn<Lute, String> colRefNr;
     @FXML private TableColumn<Lute, String> colName;
     @FXML private TableColumn<Lute, Short> colYear;
@@ -123,10 +125,42 @@ public class FXMLMainController extends Application implements Initializable, Re
 		leftBox.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 		
 		// Data Mapping
-		colHasImg.setCellValueFactory(new PropertyValueFactory<>("filePath"));
+		colImg.setCellValueFactory(new PropertyValueFactory<>("filePath"));
 		colRefNr.setCellValueFactory(new PropertyValueFactory<>("referenceNr"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+			 
+		
+		colImg.setCellFactory(new Callback<TableColumn<Lute, String>, TableCell<Lute, String>>(){        
+		    @Override
+		    public TableCell<Lute, String> call(TableColumn<Lute, String> param) {      
+		        TableCell<Lute, String> cell = new TableCell<Lute, String>(){
+		        		@Override
+		            public void updateItem(String item, boolean empty) {     
+		        			super.updateItem(item, empty);
+		        			
+		        			if(item != null) {
+			        			if (!item.equals("")) {
+			        		    	 	setGraphic(new Glyph("FontAwesome", FontAwesome.Glyph.IMAGE));
+			        		    }
+		        			}
+		            }
+		        };               
+		        		        
+		        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                   	 	event.consume();
+	                   	TableCell c = (TableCell) event.getSource();
+	                   	if(!c.getItem().equals("")) {
+	                   		showImageWindow();
+	                   	}
+                    }
+                });
+		        
+		        return cell;
+		    }
+		});
 		
 		list = this.model.getList();
         
@@ -141,7 +175,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 		listlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT);
 		listlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.LIST_WINDOW_HEIGHT_PERCENT );
 		listlayout.setVgrow(tableView, Priority.ALWAYS);
-	
 	
 		
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);

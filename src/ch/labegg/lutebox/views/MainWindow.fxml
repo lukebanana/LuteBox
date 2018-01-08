@@ -87,7 +87,13 @@
 					<VBox fx:id="listlayout">
 						<TableView fx:id="tableView">
 							<columns>
-								<TableColumn fx:id="colHasImg" text="%colHasImg" />
+								<TableColumn fx:id="colImg" text="%colHasImg">
+
+
+									
+								    
+								    
+								</TableColumn>
 								<TableColumn fx:id="colRefNr" text="%colReferenceNr" />
 								<TableColumn fx:id="colName" text="%colName" />
 								<TableColumn fx:id="colYear" text="%colYear" />
