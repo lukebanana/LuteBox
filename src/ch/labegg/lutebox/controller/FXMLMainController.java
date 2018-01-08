@@ -90,11 +90,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 
 	private 	EventHandler<MouseEvent> imageHoverHandler = new EventHandler<MouseEvent>() {
 	     @Override
-	     public void handle(MouseEvent event) {
-				
-	    	 
-	    	 	System.out.println("Entered");
-				
+	     public void handle(MouseEvent event) {		
 	    	 	imageView.setCursor(Cursor.HAND); //Change cursor to hand
 	     }
 	};
@@ -221,14 +217,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 		     }
 		});
 		
-		imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-		     @Override
-		     public void handle(MouseEvent event) {
-		    	 	imageView.setCursor(Cursor.HAND); //Change cursor to hand
-		     }
-		});
-		
-		
 		textAreaNotes.setPrefRowCount(10);
 		textAreaNotes.setPrefColumnCount(100);
 		textAreaNotes.setEditable(false);
@@ -247,7 +235,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 			imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, imageHoverHandler);
 			
 		}else {
-			
 			imageView.setImage( new Image(getClass().getResourceAsStream("/images/gui/placeholder.jpg")) );
 			imageView.removeEventHandler(MouseEvent.MOUSE_ENTERED, imageHoverHandler);
 		}
