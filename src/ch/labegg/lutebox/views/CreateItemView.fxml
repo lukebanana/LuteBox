@@ -11,16 +11,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ScrollPane?>
-<ScrollPane styleClass="window main-window" fx:id="scrollPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true" >
+<?import javafx.scene.control.TextArea?>
+<ScrollPane styleClass="window main-window" fx:id="scrollPane" stylesheets="@styles/global.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" fitToHeight="true" fitToWidth="true" >
     <content>
 		<BorderPane fx:id="borderPane">
 			<top>
-				<Label fx:id="heading" text="%createListItem" />
-				
+				<Label fx:id="heading" text="%createListItem" styleClass="pane-heading" />
+			
 			</top>
 		    <center>
 		    		<GridPane fx:id="formGrid" alignment="center" hgap="10" vgap="10">
-		    			<ImageView fx:id="imageView" GridPane.columnIndex="1" GridPane.rowIndex="1" pickOnBounds="true" preserveRatio="true">
+		    			<ImageView fx:id="imageView" GridPane.columnSpan="2" GridPane.columnIndex="1" GridPane.rowIndex="1" pickOnBounds="true" preserveRatio="true">
 				      <image>
 				      </image>
 				    </ImageView>
@@ -37,6 +38,9 @@
 			  		<Label fx:id="heading" text="%inputYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 			  		<TextField fx:id="textInputYear" promptText="%inputYear" GridPane.columnIndex="2" GridPane.rowIndex="5" />
 		  		
+		  		
+			  		<Label fx:id="heading" text="%inputNotes" GridPane.columnSpan="2" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+			  		<TextArea fx:id="textareaInputNotes" promptText="%inputNotes" wrapText="true" GridPane.columnSpan="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 		  		</GridPane>
 		    </center>
 		    <bottom>

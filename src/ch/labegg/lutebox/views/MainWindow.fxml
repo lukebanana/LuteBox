@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.glyphfont.Glyph?>
-
+<?import javafx.scene.control.TextArea?>
 <fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hmin="720.0" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" vmin="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
 	<content>
 	
@@ -127,6 +127,9 @@
 			  		<Label text="%inputYear" GridPane.columnIndex="2" GridPane.rowIndex="5" />
 			  		<Text fx:id="textYear" text="" GridPane.columnIndex="3" GridPane.rowIndex="5" />
               
+			  		<Label text="%inputNotes" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+			  		
+			  		<TextArea fx:id="textAreaNotes" wrapText="true" text="" GridPane.columnIndex="3" GridPane.rowIndex="7" />
 	  			</GridPane>
 
 				<styleClass>

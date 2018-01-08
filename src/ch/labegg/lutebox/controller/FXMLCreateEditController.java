@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +46,7 @@ public class FXMLCreateEditController implements Initializable {
 	@FXML private TextField textInputName;
 	@FXML private TextField textInputRefNr;
 	@FXML private TextField textInputYear;
+	@FXML private TextArea textareaInputNotes;
 	@FXML private Button uploadImage;
 	@FXML private Button confirmItem;
 	@FXML private GridPane formGrid;
@@ -77,7 +79,7 @@ public class FXMLCreateEditController implements Initializable {
 	     
 			stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL); // Block user from clicking away
-			stage.setScene(new Scene(root, 800, 600));	
+			stage.setScene(new Scene(root, 720, 560));	
 			stage.centerOnScreen();
 			stage.show();
 			
@@ -103,6 +105,7 @@ public class FXMLCreateEditController implements Initializable {
 			textInputName.setText(currentItem.getName());
 			textInputRefNr.setText(currentItem.getReferenceNr());
 			textInputYear.setText(Short.toString(currentItem.getYear()));
+			textareaInputNotes.setText(currentItem.getNotes());
 		}
 				
 		confirmItem.setText(model.getRessourceBundle().getString("saveItem"));
@@ -146,13 +149,15 @@ public class FXMLCreateEditController implements Initializable {
 				}else{
 					currentItem.setName(name);
 					currentItem.setRefNr(textInputRefNr.getText().trim());
-					
 				}
 	
 				if(yearString != "") {
 					short year = Short.parseShort(yearString);
 					currentItem.setYear(year);
 				}
+				
+				currentItem.setNotes(textareaInputNotes.getText().trim());
+				
 				
 				validateSuccessful = FieldValidator.validateImage(bufferedImage, file);	
 				

@@ -1,8 +1,13 @@
 package ch.labegg.lutebox.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import org.controlsfx.glyphfont.*;
 
@@ -23,13 +28,16 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -69,8 +77,9 @@ public class FXMLMainController extends Application implements Initializable, Re
 	@FXML private Text textReferenceNr;
 	@FXML private Text textName;
 	@FXML private Text textYear;
-
+	@FXML private TextArea textAreaNotes;
 	
+		
 	private DataModel model = new MainModel();
 	private ObservableList<Lute> list = null;
 
@@ -185,7 +194,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		//bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
-	
+			
 		imageView.setFitWidth(Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.GLOBAL_IMAGE_THUMBNAIL_WIDTH);
 		
 		imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -195,6 +204,11 @@ public class FXMLMainController extends Application implements Initializable, Re
 		        showImageWindow();
 		     }
 		});
+		
+		textAreaNotes.setPrefRowCount(10);
+		textAreaNotes.setPrefColumnCount(100);
+		textAreaNotes.setEditable(false);
+		textAreaNotes.setFocusTraversable(false);
 	}	
 	
 	
@@ -202,7 +216,13 @@ public class FXMLMainController extends Application implements Initializable, Re
 		textReferenceNr.setText(item.getReferenceNr());
 		textName.setText(item.getName());
 		textYear.setText(Short.toString(item.getYear()));
-		imageView.setImage(item.getImage());
+		textAreaNotes.setText(item.getNotes());
+				
+		if(item.hasImage()) {
+			imageView.setImage(item.getImage());
+		}else {
+			imageView.setImage( new Image(getClass().getResourceAsStream("/images/gui/placeholder.jpg")) );
+		}
 	}
 
 
@@ -303,12 +323,12 @@ public class FXMLMainController extends Application implements Initializable, Re
 	 * the table is changed. New and deleted items are refreshed automatically.
 	 */
 	public void refresh() {
-	  int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-	  tableView.setItems(null);
-	  tableView.layout();
-	  tableView.setItems(model.getList());
-	  // Must set the selected index again
-	  tableView.getSelectionModel().select(selectedIndex);
+		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+		tableView.setItems(null);
+		tableView.layout();
+		tableView.setItems(model.getList());
+		// Must set the selected index again
+		tableView.getSelectionModel().select(selectedIndex);
 	}
 
 }

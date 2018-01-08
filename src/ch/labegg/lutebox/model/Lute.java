@@ -18,6 +18,7 @@ public class Lute implements Serializable  {
 	private String name = "";
 	private short year = 0;
 	private String referenceNr = "";
+	private String notes = "";
 	
 	private int gridSize = 12;
 	private int points[][] = new int[gridSize][2];
@@ -55,6 +56,10 @@ public class Lute implements Serializable  {
 	public String getReferenceNr() {
 		return referenceNr;
 	}
+	
+	public String getNotes() {
+		return notes;
+	}
 
 	public int[][] getMeasurements() {
 		return points;
@@ -72,7 +77,15 @@ public class Lute implements Serializable  {
 			return null;
 		}
 	}
-	
+
+	public boolean hasImage() {
+		if (this.filePath != "") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+		
 	public void setFilePath(String filePath) {
 		this.filePath = filePath; 
 	}
@@ -90,5 +103,8 @@ public class Lute implements Serializable  {
 		this.name = name; 
 	}
 
+	public void setNotes(String notes) {
+		this.notes = notes; 
+	}
 	
 }

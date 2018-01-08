@@ -13,3 +13,8 @@
 .window .bottom-box {
     -fx-background-color: #afafaf;
 }
+
+.pane-heading{
+	-fx-color: #afafaf;
+	-fx-font-size: 32px;
+}
