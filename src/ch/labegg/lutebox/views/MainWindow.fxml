@@ -129,7 +129,7 @@
               
 			  		<Label text="%inputNotes" GridPane.columnIndex="2" GridPane.rowIndex="6" />
 			  		
-			  		<TextArea fx:id="textAreaNotes" prefColumnCount="100" prefRowCount="10" wrapText="true" text="" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+			  		<TextArea fx:id="textAreaNotes" prefColumnCount="40" prefRowCount="10" wrapText="true" text="" GridPane.columnIndex="2" GridPane.rowIndex="7" />
 	  			</GridPane>
 
 				<styleClass>

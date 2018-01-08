@@ -15,7 +15,7 @@
 		    <center>
 		    		<GridPane alignment="center" hgap="10" vgap="10">
 		    			<padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
-		    			<Text text="About" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+		    			<Text text="About" styleClass="pane-heading" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 		    			
 		    			<Text text="LuteBox v0.5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />  
 		    			               
