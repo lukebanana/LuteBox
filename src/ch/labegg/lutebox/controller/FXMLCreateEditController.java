@@ -12,7 +12,6 @@ import ch.labegg.lutebox.config.LBConfig;
 import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.AlertBox;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
