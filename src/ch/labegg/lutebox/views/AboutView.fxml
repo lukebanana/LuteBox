@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
 <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" stylesheets="@styles/global.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
@@ -17,7 +14,7 @@
 		    			<padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 		    			<Text text="About" styleClass="pane-heading" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 		    			
-		    			<Text text="LuteBox v0.5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />  
+		    			<Text text="LuteBox v0.6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />  
 		    			               
 	               	<styleClass>
 						<String fx:value="pane" />

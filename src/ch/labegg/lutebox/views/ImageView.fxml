@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import org.controlsfx.glyphfont.Glyph?>
 
-<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" stylesheets="@styles/global.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <content>
 	    <AnchorPane>	    
 			<BorderPane fx:id="borderPane">

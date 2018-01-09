@@ -17,7 +17,6 @@
 		<BorderPane fx:id="borderPane">
 			<top>
 				<Label fx:id="heading" text="%createListItem" styleClass="pane-heading" />
-			
 			</top>
 		    <center>
 		    		<GridPane fx:id="formGrid" alignment="center" hgap="10" vgap="10">

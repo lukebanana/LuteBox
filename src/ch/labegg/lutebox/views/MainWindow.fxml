@@ -55,7 +55,7 @@
 				</top>
 				<left>
 					<VBox fx:id="leftBox">
-						<FlowPane hgap="8" vgap="16">
+						<FlowPane hgap="8" vgap="8">
 							<children>
 								<Button onAction="#handleDeleteButtonAction" text="%deleteListItem">
 									<graphic>
