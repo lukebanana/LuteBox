@@ -11,7 +11,7 @@
    -fx-lighter-brown-color-even: rgba(226, 195, 170, .35);
 }
 
-.root{
+.root {
 	-fx-font-family: Verdana, Geneva, sans-serif;
     -fx-background: -fx-primary-color;
 
@@ -27,7 +27,7 @@
 }
 
 
-/***************************** Typography ******************************/
+/***************************** Typography *******************************/
 .pane-heading{
 	-fx-color: #afafaf;
 	-fx-font-size: 2em;
@@ -37,13 +37,13 @@
 .context-menu,
 .menu-button,
 .menu-item,
-#menuBar{
+#menuBar {
 	-fx-background-color: -fx-light-brown-color;
 }
 
 .menu:hover,
 .menu-item:hover,
-.menu:showing{
+.menu:showing {
 	-fx-background-color: -fx-secondary-color;    
 	-fx-cursor: hand;
 }
@@ -60,7 +60,7 @@
 
 /****************************** Bottom Pane ******************************/
 #bottomlayout,
-.bottom-box{
+.bottom-box {
 	-fx-background-color: #ddaa7b;
 	-fx-background-image: url("/images/gui/wood2.jpg");
     -fx-background-repeat: repeat;
@@ -69,7 +69,7 @@
 }
 
 .bottom-box .text-area,
-.bottom-box .text-area .content{
+.bottom-box .text-area .content {
 	-fx-background-color: -fx-light-brown-color;
 }
 
@@ -78,25 +78,25 @@
 }
 
 /****************************** Table view ******************************/
-#listlayout{
+#listlayout {
 	-fx-background-insets: 0;
 	-fx-padding: 0;
 }
 
-.table-view{
+.table-view {
 	-fx-border-color: transparent;
 	-fx-background-color: transparent;
 	-fx-background-insets: 0;
 	-fx-padding: 0;
 }
 
-.table-view:focused{
+.table-view:focused {
     -fx-background-color: transparent;
 }
 
 .table-view .column-header,
 .table-view .column-header-background,
-.table-view .filler{
+.table-view .filler {
 	-fx-background-color: rgba(216, 176, 146, .5);
 }
 
