@@ -1,20 +1,162 @@
+/******************************* Global *******************************/
+* {
+   -fx-primary-color: #cb9369;
+   -fx-secondary-color: #7a4a2b;
+   -fx-dark-black: #342920;
+   -fx-light-black: #555555;
+   -fx-border-brown: #502d17;
+   -fx-border-black: #724F3A;
+   -fx-light-brown-color: #ddaa7b;
+   -fx-lighter-brown-color-odd: rgba(216, 176, 146, .35);
+   -fx-lighter-brown-color-even: rgba(226, 195, 170, .35);
+}
+.root{
+    -fx-background: -fx-primary-color;
+    -fx-font-family: Verdana, Geneva, sans-serif;
+}
+
 .about-window .pane {
-    -fx-background-color: #dfdfdf;
+    -fx-background-color: -fx-primary-color;
 }
 
+.pane,
 .window .pane {
-    -fx-background-color: #cfcfcf;
+	-fx-background-color: -fx-primary-color;
 }
 
-.window .left-box {
-    -fx-background-color: #cfcfcf;
-}
-
-.window .bottom-box {
-    -fx-background-color: #afafaf;
-}
 
 .pane-heading{
 	-fx-color: #afafaf;
-	-fx-font-size: 32px;
+	-fx-font-size: 2em;
+}
+
+/******************************** Menu ********************************/
+.context-menu,
+.menu-button,
+.menu-item,
+#menuBar{
+	-fx-background-color: -fx-light-brown-color;
+}
+
+.menu:hover,
+.menu-item:hover,
+.menu:showing{
+	-fx-background-color: -fx-secondary-color;    
+	-fx-cursor: hand;
+}
+
+/****************************** Split Pane ******************************/
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: -fx-secondary-color;
+   -fx-padding: 0 0.15em 0 0.15em;  
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: -fx-secondary-color;
+   -fx-padding: 0 0.15em 0 0.15em;  
+}
+
+/****************************** Bottom Pane ******************************/
+#bottomlayout,
+.bottom-box{
+	-fx-background-color: #ddaa7b;
+	-fx-background-image: url("/images/gui/wood2.jpg");
+    -fx-background-repeat: repeat;
+    -fx-background-position: left top;
+    -fx-background-size: cover;
+}
+
+.bottom-box .text-area,
+.bottom-box .text-area .content{
+	-fx-background-color: -fx-light-brown-color;
+}
+
+.img-preview {
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+/****************************** Table view ******************************/
+.table-view{
+	-fx-border-color: transparent;
+	-fx-background-color: transparent;
+}
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .filler{
+	-fx-background-color: rgba(216, 176, 146, .5);
+}
+
+
+.table-row-cell {
+	-fx-border-color: #835F4A;
+	-fx-table-cell-border-color:#835F4A;
+}
+
+.table-row-cell:even {
+	-fx-background-color: -fx-lighter-brown-color-even;
+	-fx-text-fill: black;
+}
+.table-row-cell:odd{
+	-fx-background-color: -fx-lighter-brown-color-odd;
+	-fx-text-fill: black; 
+}
+
+
+.table-row-cell:selected {
+    -fx-background-color: #835F4A;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+/****************************** Forms ******************************/
+.text-area,
+.text-area .text,
+.text-field,
+.text-area .content {
+    -fx-background-color: -fx-lighter-brown-color-odd;
+    -fx-prompt-text-fill: -fx-border-black;
+}
+
+.text-area:focused,
+.text-field:focused {
+    -fx-prompt-text-fill: transparent;
+}
+
+
+/****************************** Buttons ******************************/
+.button {
+	-fx-background-image: url("/images/gui/btn-texture.png");    
+	-fx-background-position: left top;
+    -fx-background-size: cover;
+    -fx-border-color: -fx-border-brown;
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-color: -fx-dark-black;
+    -fx-text-fill: -fx-dark-black;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-effect: none;
+}
+
+.button:hover {
+    -fx-background-color: rgba(226, 195, 170, .35);
+    -fx-cursor: hand;
 }

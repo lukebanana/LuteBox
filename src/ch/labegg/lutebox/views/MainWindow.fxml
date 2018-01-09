@@ -22,7 +22,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.glyphfont.Glyph?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.*?>
 <fx:root fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hmin="720.0" stylesheets="@styles/global.css" type="javafx.scene.control.ScrollPane" vmin="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.labegg.lutebox.controller.FXMLMainController">
 	<content>
 	
@@ -53,29 +55,38 @@
 				</top>
 				<left>
 					<VBox fx:id="leftBox">
-						<Button onAction="#handleDeleteButtonAction" text="%deleteListItem">
-							<graphic>
-						        <Glyph fontFamily="FontAwesome" icon="TIMES" />
-						    </graphic>
-					    </Button>
-						<Button onAction="#handleAddButtonAction" text="%createListItem">
-							<graphic>
-						        <Glyph fontFamily="FontAwesome" icon="PLUS" />
-						    </graphic>
-						</Button>
-						<Button onAction="#handleViewImageAction" text="%showImage">
-							<graphic>
-						        <Glyph fontFamily="FontAwesome" icon="PICTURE_ALT" />
-						    </graphic>
-					    </Button>
+						<FlowPane hgap="8" vgap="16">
+							<children>
+								<Button onAction="#handleDeleteButtonAction" text="%deleteListItem">
+									<graphic>
+								        <Glyph fontFamily="FontAwesome" icon="TIMES" />
+								    </graphic>
+							    </Button>
+								<Button onAction="#handleAddButtonAction" text="%createListItem">
+									<graphic>
+								        <Glyph fontFamily="FontAwesome" icon="PLUS" />
+								    </graphic>
+								</Button>
+								<Button onAction="#handleViewImageAction" text="%showImage">
+									<graphic>
+								        <Glyph fontFamily="FontAwesome" icon="PICTURE_ALT" />
+								    </graphic>
+							    </Button>	
+						    </children>
+						   <padding><Insets bottom="16"/></padding>
+						  
+						</FlowPane>
+				
 						
 						<Label fx:id="searchHeading" text="%searchHeading" />
-                  <FlowPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-      				      	<TextField fx:id="searchFilter" onKeyTyped="#searchRecord" promptText="%searchHeading" />
-      				      	<Button onAction="#resetSearch" text="%clearSearch" />
-                     </children>
-                  </FlowPane>
+
+						<FlowPane prefHeight="100.0" prefWidth="200.0">
+							<children>
+	      				      	<CustomTextField fx:id="searchFilter" onKeyTyped="#searchRecord" promptText="%searchHeading" />
+	      				      	<Button onAction="#resetSearch" text="%clearSearch" />
+	                    		</children>
+	                    		<padding><Insets bottom="16"/></padding>
+	                  	</FlowPane>
 				
 						<styleClass>
 							<String fx:value="pane" />
@@ -101,13 +112,16 @@
 			</BorderPane>
 		
 			<HBox fx:id="bottomlayout">
-				<BorderPane fx:id="borderPane">
+			<VBox>
+			
+				<BorderPane>
 					<center>
-						<ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
-					      <image>
-					      </image>
+						<ImageView styleClass="img-preview" fx:id="imageView" pickOnBounds="true" preserveRatio="true">		
 					    </ImageView>
 					</center>
+					<padding><Insets bottom="16"/></padding>
+				</BorderPane>
+				<BorderPane>
 					<bottom>
 						<Button fx:id="editItemButton" onAction="#handleEditButtonAction" text="%editListItem">
 							<graphic>
@@ -116,6 +130,8 @@
 					    </Button>
 					</bottom>
 				</BorderPane>
+				</VBox>
+				
 				<GridPane fx:id="formGrid" hgap="10" vgap="10">
 		    						    			
 		    			<Label text="%inputReferenceNr" GridPane.columnIndex="2" GridPane.rowIndex="3" />			      

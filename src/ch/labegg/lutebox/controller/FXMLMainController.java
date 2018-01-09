@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.glyphfont.*;
 
 import ch.labegg.lutebox.config.LBConfig;
@@ -57,7 +58,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 	@FXML private MenuBar menuBar;
 	
 	@FXML private VBox leftBox;
-	@FXML private TextField searchFilter;
+	@FXML private CustomTextField searchFilter;
 	
 	@FXML private VBox listlayout;
 	@FXML private TableView<Lute> tableView;
@@ -135,6 +136,9 @@ public class FXMLMainController extends Application implements Initializable, Re
 		leftBox.setMaxWidth( Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.LEFT_MENU_WIDTH_PERCENT );
 		leftBox.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
 		
+		Glyph icon = new Glyph("FontAwesome", FontAwesome.Glyph.SEARCH);
+		searchFilter.setRight(icon);
+		
 		// Data Mapping
 		colImg.setCellValueFactory(new PropertyValueFactory<>("filePath"));
 		colRefNr.setCellValueFactory(new PropertyValueFactory<>("referenceNr"));
@@ -166,8 +170,10 @@ public class FXMLMainController extends Application implements Initializable, Re
                     public void handle(MouseEvent event) {
                    	 	event.consume();
 	                   	TableCell c = (TableCell) event.getSource();
-	                   	if(!c.getItem().equals("")) {
-	                   		showImageWindow();
+	                   	if(c != null) {
+		                   	if(!c.getItem().equals("")) {
+		                   		showImageWindow();
+		                   	}
 	                   	}
                     }
                 });
