@@ -62,8 +62,6 @@
 								        <Glyph fontFamily="FontAwesome" icon="TIMES" />
 								    </graphic>
 							    </Button>
-							    <Button fx:id="controlButton" text="Test">
-							    </Button>
 								<Button onAction="#handleAddButtonAction" text="%createListItem">
 									<graphic>
 								        <Glyph fontFamily="FontAwesome" icon="PLUS" />

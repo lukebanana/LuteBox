@@ -75,9 +75,7 @@ public class FXMLMainController extends Application implements Initializable, Re
     
 	@FXML private HBox bottomlayout;
 	@FXML private ImageView imageView;
-	@FXML private Button editItemButton;
-	@FXML private Button controlButton;
-	
+	@FXML private Button editItemButton;	
 	@FXML private Text textReferenceNr;
 	@FXML private Text textName;
 	@FXML private Text textYear;
@@ -199,6 +197,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 		tableView.getSelectionModel().selectedItemProperty().addListener((observer, oldSelection, newSelection) -> {			
 			if (newSelection != null) {
 		    		loadItemToDetailView(newSelection);
+		    	 	showButtomLayout();
 		    		editItemButton.setVisible(true);
 		    }
 		});
@@ -228,14 +227,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 
 		// Hide Pane initially
 		splitPane.getItems().remove(bottomlayout); 
-		
-		controlButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-            		toggleButtomLayout();
-            }
-        });
-		
+			
 		
 		// Make TextArea not editable
 		textAreaNotes.setEditable(false);
@@ -367,11 +359,23 @@ public class FXMLMainController extends Application implements Initializable, Re
 	
 	public void toggleButtomLayout() {
 		if(bottomLayoutIsShown) {
-			splitPane.getItems().remove(bottomlayout); 
-			bottomLayoutIsShown = false;
+			hideButtomLayout();
 		}else {
+			showButtomLayout();
+		}
+	}
+	
+	public void showButtomLayout() {
+		if(!bottomLayoutIsShown) {
 			splitPane.getItems().add(1, bottomlayout); 
 			bottomLayoutIsShown = true;
+		}
+	}
+	
+	public void hideButtomLayout() {
+		if(bottomLayoutIsShown) {
+			splitPane.getItems().remove(bottomlayout); 
+			bottomLayoutIsShown = false;
 		}
 	}
 }
