@@ -46,6 +46,8 @@ public class ConfirmBox {
 	
 			
 		Scene scene = new Scene(layout, width, height);
+		layout.getStyleClass().add("pane");
+		scene.getStylesheets().add("/ch/labegg/lutebox/views/styles/global.css");
 		
 		window.setScene(scene);
 		window.showAndWait();
