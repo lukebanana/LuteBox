@@ -62,6 +62,8 @@
 								        <Glyph fontFamily="FontAwesome" icon="TIMES" />
 								    </graphic>
 							    </Button>
+							    <Button fx:id="controlButton" text="Test">
+							    </Button>
 								<Button onAction="#handleAddButtonAction" text="%createListItem">
 									<graphic>
 								        <Glyph fontFamily="FontAwesome" icon="PLUS" />
@@ -95,7 +97,7 @@
 					</VBox>
 				</left>
 				<center>
-					<VBox fx:id="listlayout">
+					<VBox fx:id="listlayout" alignment="TOP_LEFT">
 						<TableView fx:id="tableView">
 							<columns>
 								<TableColumn fx:id="colImg" text="%colHasImg" />
@@ -112,24 +114,23 @@
 			</BorderPane>
 		
 			<HBox fx:id="bottomlayout">
-			<VBox>
-			
-				<BorderPane>
-					<center>
-						<ImageView styleClass="img-preview" fx:id="imageView" pickOnBounds="true" preserveRatio="true">		
-					    </ImageView>
-					</center>
-					<padding><Insets bottom="16"/></padding>
-				</BorderPane>
-				<BorderPane>
-					<bottom>
-						<Button fx:id="editItemButton" onAction="#handleEditButtonAction" text="%editListItem">
-							<graphic>
-						        <Glyph fontFamily="FontAwesome" icon="PENCIL" />
-						    </graphic>
-					    </Button>
-					</bottom>
-				</BorderPane>
+				<VBox>
+					<BorderPane>
+						<center>
+							<ImageView styleClass="img-preview" fx:id="imageView" pickOnBounds="true" preserveRatio="true">		
+						    </ImageView>
+						</center>
+						<padding><Insets bottom="16"/></padding>
+					</BorderPane>
+					<BorderPane>
+						<bottom>
+							<Button fx:id="editItemButton" onAction="#handleEditButtonAction" text="%editListItem">
+								<graphic>
+							        <Glyph fontFamily="FontAwesome" icon="PENCIL" />
+							    </graphic>
+						    </Button>
+						</bottom>
+					</BorderPane>
 				</VBox>
 				
 				<GridPane fx:id="formGrid" hgap="10" vgap="10">

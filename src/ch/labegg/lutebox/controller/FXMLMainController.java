@@ -12,6 +12,8 @@ import ch.labegg.lutebox.model.Lute;
 import ch.labegg.lutebox.model.MainModel;
 import ch.labegg.lutebox.model.api.DataModel;
 import ch.labegg.lutebox.views.ConfirmBox;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,11 +25,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -46,11 +50,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 public class FXMLMainController extends Application implements Initializable, RefreshableList {
 
 	@FXML private ScrollPane scrollPane = new ScrollPane();
 	@FXML private BorderPane borderPane;
+	@FXML private SplitPane splitPane;
 
 	@FXML private Menu menuFile;
 	@FXML private Menu menuEdit;
@@ -70,6 +76,8 @@ public class FXMLMainController extends Application implements Initializable, Re
 	@FXML private HBox bottomlayout;
 	@FXML private ImageView imageView;
 	@FXML private Button editItemButton;
+	@FXML private Button controlButton;
+	
 	@FXML private Text textReferenceNr;
 	@FXML private Text textName;
 	@FXML private Text textYear;
@@ -81,6 +89,7 @@ public class FXMLMainController extends Application implements Initializable, Re
 
 	private FXMLLoader loader = new FXMLLoader();
 	private Stage window;
+	private boolean bottomLayoutIsShown = false;
 
 	private 	EventHandler<MouseEvent> imageHoverHandler = new EventHandler<MouseEvent>() {
 	     @Override
@@ -202,7 +211,8 @@ public class FXMLMainController extends Application implements Initializable, Re
 		bottomlayout.setPrefHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT);
 		//bottomlayout.setMaxHeight( Screen.getPrimary().getBounds().getHeight() / 100 * LBConfig.BOTTOM_WINDOW_HEIGHT_PERCENT );
 		bottomlayout.setPadding(LBConfig.GLOBAL_BOX_PADDING_INSET);
-			
+		
+		
 		imageView.setFitWidth(Screen.getPrimary().getBounds().getWidth() / 100 * LBConfig.GLOBAL_IMAGE_THUMBNAIL_WIDTH);
 		
 		imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -215,6 +225,17 @@ public class FXMLMainController extends Application implements Initializable, Re
 		    	 	}
 		     }
 		});
+
+		// Hide Pane initially
+		splitPane.getItems().remove(bottomlayout); 
+		
+		controlButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+            		toggleButtomLayout();
+            }
+        });
+		
 		
 		// Make TextArea not editable
 		textAreaNotes.setEditable(false);
@@ -259,7 +280,6 @@ public class FXMLMainController extends Application implements Initializable, Re
 		FXMLImageViewWindow imgcontroller = new FXMLImageViewWindow(model, tableView.getSelectionModel().getSelectedItem());
     }
 	
-
 	@FXML
 	public void handleDeleteButtonAction(ActionEvent event) {
 		boolean result = ConfirmBox.display("Eintrag löschen", "Are you sure you want to delete the selected items?", 380, 120);
@@ -344,5 +364,14 @@ public class FXMLMainController extends Application implements Initializable, Re
 		// Must set the selected index again
 		tableView.getSelectionModel().select(selectedIndex);
 	}
-
+	
+	public void toggleButtomLayout() {
+		if(bottomLayoutIsShown) {
+			splitPane.getItems().remove(bottomlayout); 
+			bottomLayoutIsShown = false;
+		}else {
+			splitPane.getItems().add(1, bottomlayout); 
+			bottomLayoutIsShown = true;
+		}
+	}
 }

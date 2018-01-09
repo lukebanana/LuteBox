@@ -10,9 +10,11 @@
    -fx-lighter-brown-color-odd: rgba(216, 176, 146, .35);
    -fx-lighter-brown-color-even: rgba(226, 195, 170, .35);
 }
+
 .root{
+	-fx-font-family: Verdana, Geneva, sans-serif;
     -fx-background: -fx-primary-color;
-    -fx-font-family: Verdana, Geneva, sans-serif;
+
 }
 
 .about-window .pane {
@@ -25,12 +27,13 @@
 }
 
 
+/***************************** Typography ******************************/
 .pane-heading{
 	-fx-color: #afafaf;
 	-fx-font-size: 2em;
 }
 
-/******************************** Menu ********************************/
+/******************************** Menu **********************************/
 .context-menu,
 .menu-button,
 .menu-item,
@@ -75,10 +78,18 @@
 }
 
 /****************************** Table view ******************************/
+#listlayout{
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
 .table-view{
 	-fx-border-color: transparent;
 	-fx-background-color: transparent;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
 }
+
 .table-view:focused{
     -fx-background-color: transparent;
 }
@@ -88,7 +99,6 @@
 .table-view .filler{
 	-fx-background-color: rgba(216, 176, 146, .5);
 }
-
 
 .table-row-cell {
 	-fx-border-color: #835F4A;
@@ -103,7 +113,6 @@
 	-fx-background-color: -fx-lighter-brown-color-odd;
 	-fx-text-fill: black; 
 }
-
 
 .table-row-cell:selected {
     -fx-background-color: #835F4A;
@@ -154,6 +163,7 @@
     -fx-background-color: transparent;
     -fx-font-weight: bold;
     -fx-effect: none;
+    -fx-background-insets: 0;
 }
 
 .button:hover {
