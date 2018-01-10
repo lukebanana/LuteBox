@@ -138,8 +138,7 @@ public class FXMLCreateEditController implements Initializable {
 		if (name != null) {
 			if(name.length() != 0) {
 				String yearString = textInputYear.getText().trim();
-				
-				
+								
 				if(!isEdit) {
 					currentItem = new Lute(
 							name, 
@@ -155,8 +154,11 @@ public class FXMLCreateEditController implements Initializable {
 					currentItem.setYear(year);
 				}
 				
-				currentItem.setNotes(textareaInputNotes.getText().trim());
+				String notes = textareaInputNotes.getText().trim();
 				
+				if(notes != "") {
+					currentItem.setNotes(notes);
+				}
 				
 				validateSuccessful = FieldValidator.validateImage(bufferedImage, file);	
 				
@@ -175,6 +177,9 @@ public class FXMLCreateEditController implements Initializable {
 					}
 					stage.close();
 				}
+			}else {
+				validateSuccessful = false;
+				AlertBox.display("Cannot create Lute", "Field 'Name' cannot be empty!", 200, 120);
 			}
 		}else {
 			validateSuccessful = false;
